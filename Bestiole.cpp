@@ -1,6 +1,6 @@
 #include "Bestiole.h"
 
-#include "Milieu.h"
+#include "Ecosystem.h"
 
 #include <cstdlib>
 #include <cmath>
@@ -128,7 +128,7 @@ void Bestiole::move( int xLim, int yLim )
 }
 
 
-void Bestiole::action( Milieu & monMilieu )
+void Bestiole::action( Ecosystem & monMilieu )
 {
 
    move( monMilieu.getWidth(), monMilieu.getHeight() );

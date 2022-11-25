@@ -9,7 +9,7 @@
 using namespace std;
 
 
-class Milieu;
+class Ecosystem;
 
 
 class Bestiole
@@ -52,7 +52,7 @@ public :                                           // Forme canonique :
    Bestiole( const Bestiole & b );                 // Constructeur de copies
    ~Bestiole( void );                              // Destructeur
    
-   void action( Milieu & monMilieu );
+   void action( Ecosystem & monMilieu );
    void draw( UImg & support );
 
    bool jeTeVois( const Bestiole & b ) const;
