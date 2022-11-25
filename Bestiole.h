@@ -1,10 +1,5 @@
-#ifndef _BESTIOLES_H_
-#define _BESTIOLES_H_
-
-
-#include "UImg.h"
-
-#include <iostream>
+#ifndef _BESTIOLE_H_
+#define _BESTIOLE_H_
 
 using namespace std;
 
@@ -12,7 +7,7 @@ using namespace std;
 class Ecosystem;
 
 
-class Bestiole
+class Bestiole : public IBestiole
 {
 
 private :
@@ -58,8 +53,6 @@ public :                                           // Forme canonique :
    bool jeTeVois( const Bestiole & b ) const;
 
    friend bool operator==( const Bestiole & b1, const Bestiole & b2 );
-
 };
-
 
 #endif
