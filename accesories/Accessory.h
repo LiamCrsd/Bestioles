@@ -3,9 +3,9 @@
 
 class Accessory 
 {
-double getSpeedFactor() {return 1;};
-double getResistanceFactor() {return 1;};
-double getCamouflageFactor() {return 1;};
+virtual double getSpeedFactor() {return 1;};
+virtual double getResistanceFactor() {return 1;};
+virtual double getCamouflageFactor() {return 1;};
 };
 
 #endif
