@@ -9,14 +9,14 @@ using namespace std;
 using namespace cimg_library;
 
 
-class Milieu;
+class Ecosystem;
 
 
 class Aquarium : public CImgDisplay
 {
 
 private :
-   Milieu       * flotte;
+   Ecosystem       * flotte;
 
    int            delay;
 
@@ -24,7 +24,7 @@ public :
    Aquarium( int width, int height, int _delay );
    ~Aquarium( void );
 
-   Milieu & getMilieu( void ) { return *flotte; }
+   Ecosystem & getEcosystem( void ) { return *flotte; }
 
    void run( void );
 

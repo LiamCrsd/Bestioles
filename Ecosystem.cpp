@@ -1,32 +1,32 @@
-#include "Milieu.h"
+#include "Ecosystem.h"
 
 #include <cstdlib>
 #include <ctime>
 
 
-const T    Milieu::white[] = { (T)255, (T)255, (T)255 };
+const T    Ecosystem::white[] = { (T)255, (T)255, (T)255 };
 
 
-Milieu::Milieu( int _width, int _height ) : UImg( _width, _height, 1, 3 ),
+Ecosystem::Ecosystem( int _width, int _height ) : UImg( _width, _height, 1, 3 ),
                                             width(_width), height(_height)
 {
 
-   cout << "const Milieu" << endl;
+   cout << "const Ecosystem" << endl;
 
    std::srand( time(NULL) );
 
 }
 
 
-Milieu::~Milieu( void )
+Ecosystem::~Ecosystem( void )
 {
 
-   cout << "dest Milieu" << endl;
+   cout << "dest Ecosystem" << endl;
 
 }
 
 
-void Milieu::step( void )
+void Ecosystem::step( void )
 {
 
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
@@ -41,7 +41,7 @@ void Milieu::step( void )
 }
 
 
-int Milieu::nbVoisins( const Bestiole & b )
+int Ecosystem::nbVoisins( const Bestiole & b )
 {
 
    int         nb = 0;
