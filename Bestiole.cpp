@@ -6,25 +6,48 @@
 #include <cmath>
 
 
-const double      Bestiole::AFF_SIZE = 8.;
-const double      Bestiole::MAX_VITESSE = 10.;
 const double      Bestiole::LIMITE_VUE = 30.;
 
 int               Bestiole::next = 0;
 
 
-Bestiole::Bestiole( void )
+Bestiole::Bestiole( void ) : Bestiole(0, 0, 0, 0, 0 ,0, 0, 0) {
+
+   cout << "const Bestiole by default" << endl;
+   direction = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
+   speed = static_cast<double>( rand() )/RAND_MAX*10.;
+   size = 8.;
+
+}
+
+Bestiole::Bestiole(
+   int startX, 
+   int startY, 
+   double startDir,
+   double startSpeed,
+   double size,
+   int ageLim,
+   double cloneRate,
+   double deathRate
+   ) : 
+   x(startX), 
+   y(startY), 
+   direction(startDir),
+   speed(startSpeed),
+   size(size),
+   ageLim(ageLim),
+   cloneRate(cloneRate),
+   deathRate(deathRate)
 {
 
    identite = ++next;
 
-   cout << "const Bestiole (" << identite << ") par defaut" << endl;
+   cout << "const Bestiole (" << identite << ")" << endl;
 
-   x = y = 0;
+   age = 0;
+   dead = false;
+
    cumulX = cumulY = 0.;
-   orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
-   vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
-
    couleur = new T[ 3 ];
    couleur[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
    couleur[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
@@ -42,9 +65,17 @@ Bestiole::Bestiole( const Bestiole & b )
 
    x = b.x;
    y = b.y;
+   direction = b.direction;
+   speed = b.speed;
+   size = b.size;
+   ageLim = b.ageLim;
+   cloneRate = b.cloneRate;
+   deathRate = b.deathRate;
+   
+   age = b.age;
+   dead = b.dead;
+
    cumulX = cumulY = 0.;
-   orientation = b.orientation;
-   vitesse = b.vitesse;
    couleur = new T[ 3 ];
    memcpy( couleur, b.couleur, 3*sizeof(T) );
 
@@ -56,26 +87,17 @@ Bestiole::~Bestiole( void )
 
    delete[] couleur;
 
-   cout << "dest Bestiole" << endl;
+   cout << "dest Bestiole " << identite << endl;
 
 }
 
 
-void Bestiole::initCoords( int xLim, int yLim )
-{
-
-   x = rand() % xLim;
-   y = rand() % yLim;
-
-}
-
-
-void Bestiole::bouge( int xLim, int yLim )
+void Bestiole::move( int xLim, int yLim )
 {
 
    double         nx, ny;
-   double         dx = cos( orientation )*vitesse;
-   double         dy = -sin( orientation )*vitesse;
+   double         dx = cos( direction )*speed;
+   double         dy = -sin( direction )*speed;
    int            cx, cy;
 
 
@@ -86,7 +108,7 @@ void Bestiole::bouge( int xLim, int yLim )
    ny = y + dy + cy;
 
    if ( (nx < 0) || (nx > xLim - 1) ) {
-      orientation = M_PI - orientation;
+      direction = M_PI - direction;
       cumulX = 0.;
    }
    else {
@@ -95,7 +117,7 @@ void Bestiole::bouge( int xLim, int yLim )
    }
 
    if ( (ny < 0) || (ny > yLim - 1) ) {
-      orientation = -orientation;
+      direction = -direction;
       cumulY = 0.;
    }
    else {
@@ -109,7 +131,7 @@ void Bestiole::bouge( int xLim, int yLim )
 void Bestiole::action( Milieu & monMilieu )
 {
 
-   bouge( monMilieu.getWidth(), monMilieu.getHeight() );
+   move( monMilieu.getWidth(), monMilieu.getHeight() );
 
 }
 
@@ -117,12 +139,12 @@ void Bestiole::action( Milieu & monMilieu )
 void Bestiole::draw( UImg & support )
 {
 
-   double         xt = x + cos( orientation )*AFF_SIZE/2.1;
-   double         yt = y - sin( orientation )*AFF_SIZE/2.1;
+   double         xt = x + cos( direction )*size/2.1;
+   double         yt = y - sin( direction )*size/2.1;
 
 
-   support.draw_ellipse( x, y, AFF_SIZE, AFF_SIZE/5., -orientation/M_PI*180., couleur );
-   support.draw_circle( xt, yt, AFF_SIZE/2., couleur );
+   support.draw_ellipse( x, y, size, size/5., -direction/M_PI*180., couleur );
+   support.draw_circle( xt, yt, size/2., couleur );
 
 }
 
