@@ -1,22 +1,27 @@
 #include "CollectionBestiole.h"
-#include "Bestiole.h"
+#include "IBestiole.h"
+
+#include <vector>
+#include <memory>
 
 CollectionBestiole::CollectionBestiole() {
-	this->bestioles = new std::vector<Bestiole*>();
-
 }
 
 CollectionBestiole::~CollectionBestiole() {
-	delete bestioles;
 }
 
-CollectionBestiole::add(Bestiole bestiole) {
-	this->bestioles.add(Bestiole);
+void CollectionBestiole::addBestiole(std::shared_ptr<IBestiole> ptrBestiole) {
+	this->bestioles.push_back(ptrBestiole);
 }
 
-CollectionBestiole::delete(Bestiole *bestiole) {
-	for ( std::vector<Bestiole>::iterator it = bestioles.begin(); it != bestioles.end(); it++)
-	{
-		if (std)
+void CollectionBestiole::delBestiole(std::shared_ptr<IBestiole> ptrBestiole) {
+	std::vector<std::shared_ptr<IBestiole>>::iterator it = bestioles.begin();
+
+	while (it != bestioles.end() && *it != ptrBestiole) {
+		it++;
+	}
+
+	if (it != bestioles.end()) {
+		bestioles.erase(it);
 	}
 }
