@@ -167,3 +167,10 @@ bool Bestiole::jeTeVois( const Bestiole & b ) const
    return ( dist <= LIMITE_VUE );
 
 }
+
+bool Bestiole::isDead() { throw std::invalid_argument("Not implemented");};
+bool Bestiole::atBorder() { throw std::invalid_argument("Not implemented");};
+void Bestiole::resolveCollision() { throw std::invalid_argument("Not implemented");};
+void Bestiole::resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){ throw std::invalid_argument("Not implemented");};
+bool Bestiole::doClone() { throw std::invalid_argument("Not implemented");};
+void Bestiole::move() { throw std::invalid_argument("Not implemented");};

@@ -2,16 +2,19 @@
 #define _BESTIOLE_INTERFACE_H_
 
 #include <vector>
+#include <memory>
 
 class IBestiole
 {
 public:
-	virtual bool isDead();
-	virtual bool atBorder();
-	virtual void resolveCollision();
-	virtual void resolveDetections(std::vector<IBestiole*> detectedNeighbors);
-	virtual bool doClone();
-	virtual void move();
+	virtual ~IBestiole() {};
+
+	virtual bool isDead()=0;
+	virtual bool atBorder()=0;
+	virtual void resolveCollision()=0;
+	virtual void resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors)=0;
+	virtual bool doClone()=0;
+	virtual void move()=0;
 };
 
 #endif

@@ -1,8 +1,12 @@
 #ifndef _BESTIOLE_H_
 #define _BESTIOLE_H_
 
-using namespace std;
+#include "IBestiole.h"
+#include "UImg.h"
+#include <iostream>
 
+
+using namespace std;
 
 class Ecosystem;
 
@@ -49,6 +53,12 @@ public :                                           // Forme canonique :
    
    void action( Ecosystem & monMilieu );
    void draw( UImg & support );
+   bool isDead();
+	bool atBorder();
+	void resolveCollision();
+	void resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors);
+	bool doClone();
+	void move();
 
    bool jeTeVois( const Bestiole & b ) const;
 

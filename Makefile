@@ -1,14 +1,17 @@
-main : main.cpp Aquarium.o Bestiole.o Milieu.o
-	g++ -Wall -std=c++11 -o main main.cpp Aquarium.o Bestiole.o Milieu.o -I . -lX11 -lpthread
+main : main.cpp Aquarium.o Bestiole.o Ecosystem.o BestioleFactory.o
+	g++ -Wall -std=c++11 -o main main.cpp Aquarium.o Bestiole.o Ecosystem.o BestioleFactory.o -I . -lX11 -lpthread
 
 Aquarium.o : Aquarium.h Aquarium.cpp
 	g++ -Wall -std=c++11  -c Aquarium.cpp -I .
 
-Bestiole.o : Bestiole.h Bestiole.cpp
+Bestiole.o : Bestiole.h Bestiole.cpp IBestiole.h
 	g++ -Wall -std=c++11  -c Bestiole.cpp -I .
 
-Milieu.o : Milieu.h Milieu.cpp
-	g++ -Wall -std=c++11  -c Milieu.cpp -I .
+Ecosystem.o : Ecosystem.h Ecosystem.cpp
+	g++ -Wall -std=c++11  -c Ecosystem.cpp -I .
+
+BestioleFactory.o : BestioleFactory.h BestioleFactory.cpp
+	g++ -Wall -std=c++11  -c BestioleFactory.cpp -I .
 
 clean:
 	rm -rf *.o main

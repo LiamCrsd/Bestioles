@@ -4,8 +4,8 @@
 #include <memory>
 class BestioleFactory: public IBestioleFactory{
     public:
-        virtual std::shared_ptr<Bestiole> createBestiole();
-        virtual std::shared_ptr<Bestiole> createBestiole(const Bestiole& bestiole);
-        virtual std::shared_ptr<Bestiole> createBestiole(int type);
+        virtual std::shared_ptr<IBestiole> createBestiole();
+        virtual std::shared_ptr<IBestiole> createBestiole(const Bestiole& bestiole);
+        virtual std::shared_ptr<IBestiole> createBestiole(int type);
 };
 #endif
