@@ -9,10 +9,7 @@ using namespace std;
 
 int main()
 {
-   //init config instance
-   Config& config = Config::GetInstance();
-
-   Aquarium aquarium( config.width, config.height, 30 );
+   Aquarium aquarium( 30 );
 
    for ( int i = 1; i <= 20; ++i )
       aquarium.getEcosystem().birthBestiole();

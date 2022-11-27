@@ -21,7 +21,7 @@ private :
    int            delay;
 
 public :
-   Aquarium( int width, int height, int _delay );
+   Aquarium( int _delay );
    ~Aquarium( void );
 
    Ecosystem & getEcosystem( void ) { return *flotte; }

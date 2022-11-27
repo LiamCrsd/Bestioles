@@ -1,14 +1,18 @@
 #include "Aquarium.h"
 
 #include "Ecosystem.h"
+#include "Config.h"
 
-
-Aquarium::Aquarium( int width, int height, int _delay ) : CImgDisplay(), delay( _delay )
+Aquarium::Aquarium( int _delay ) : CImgDisplay(), delay( _delay )
 {
 
    int         screenWidth = 1280; //screen_width();
    int         screenHeight = 1024; //screen_height();
 
+   Config& config = Config::GetInstance();
+   int width = config.width;
+   int height = config.height;
+   
 
    cout << "const Aquarium" << endl;
 
