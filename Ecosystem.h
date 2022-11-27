@@ -6,6 +6,7 @@
 #include "Bestiole.h"
 #include "BestioleFactory.h"
 #include "CollectionBestiole.h"
+#include "Config.h"
 
 #include <iostream>
 #include <vector>

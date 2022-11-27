@@ -2,6 +2,7 @@
 #include "BestioleFactory.h"
 #include "CollectionBestiole.h"
 #include "IBestiole.h"
+#include "Config.h"
 
 #include <cstdlib>
 #include <ctime>
@@ -13,7 +14,7 @@ const T    Ecosystem::white[] = { (T)255, (T)255, (T)255 };
 Ecosystem::Ecosystem( int _width, int _height ) : UImg( _width, _height, 1, 3 ),
                                             width(_width), height(_height)
 {
-
+   
    cout << "const Ecosystem" << endl;
 
    std::srand( time(NULL) );
@@ -59,7 +60,7 @@ int Ecosystem::nbVoisins( const Bestiole & b )
    for ( std::vector<std::shared_ptr<IBestiole>>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
       if ( !(b == **it) && b.jeTeVois(**it) )
          ++nb;
-
-   return nb;*/
+   */
+   return nb;
 
 }
