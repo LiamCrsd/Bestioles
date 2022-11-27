@@ -42,7 +42,7 @@ Bestiole::Bestiole(
 
    identite = ++next;
 
-   cout << "const Bestiole (" << identite << ")" << endl;
+   cout << "const Bestiole (" << identite << ") of size " << size << endl;
 
    age = 0;
    dead = false;
