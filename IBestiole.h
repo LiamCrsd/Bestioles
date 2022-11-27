@@ -17,7 +17,7 @@ public:
 	virtual bool doClone()=0;
    	virtual void move( int xLim, int yLim )=0;
    	virtual void draw( UImg & support )=0;
-
+	virtual int getID() const = 0;
 };
 
 #endif
