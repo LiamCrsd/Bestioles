@@ -34,9 +34,6 @@ private :
    double            cumulX, cumulY;
    T               * couleur;
 
-private :
-   void move( int xLim, int yLim );
-
 public :                                           // Forme canonique :
    Bestiole( void );                               // Constructeur par defaut
    Bestiole(                                       // Constructor of factory
@@ -51,14 +48,13 @@ public :                                           // Forme canonique :
    Bestiole( const Bestiole & b );                 // Constructeur de copies
    ~Bestiole( void );                              // Destructeur
    
-   void action( Ecosystem & monMilieu );
-   void draw( UImg & support );
    bool isDead();
 	bool atBorder();
 	void resolveCollision();
 	void resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors);
 	bool doClone();
-	void move();
+   void move( int xLim, int yLim );
+   void draw( UImg & support );
 
    bool jeTeVois( const Bestiole & b ) const;
 

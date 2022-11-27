@@ -1,6 +1,7 @@
 #ifndef _BESTIOLE_INTERFACE_H_
 #define _BESTIOLE_INTERFACE_H_
 
+#include "UImg.h"
 #include <vector>
 #include <memory>
 
@@ -14,7 +15,9 @@ public:
 	virtual void resolveCollision()=0;
 	virtual void resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors)=0;
 	virtual bool doClone()=0;
-	virtual void move()=0;
+   	virtual void move( int xLim, int yLim )=0;
+   	virtual void draw( UImg & support )=0;
+
 };
 
 #endif

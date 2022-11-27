@@ -18,3 +18,4 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(int type){
 }
 
 
+    

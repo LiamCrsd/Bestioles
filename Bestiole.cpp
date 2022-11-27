@@ -128,14 +128,6 @@ void Bestiole::move( int xLim, int yLim )
 }
 
 
-void Bestiole::action( Ecosystem & monMilieu )
-{
-
-   move( monMilieu.getWidth(), monMilieu.getHeight() );
-
-}
-
-
 void Bestiole::draw( UImg & support )
 {
 
@@ -173,4 +165,3 @@ bool Bestiole::atBorder() { throw std::invalid_argument("Not implemented");};
 void Bestiole::resolveCollision() { throw std::invalid_argument("Not implemented");};
 void Bestiole::resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){ throw std::invalid_argument("Not implemented");};
 bool Bestiole::doClone() { throw std::invalid_argument("Not implemented");};
-void Bestiole::move() { throw std::invalid_argument("Not implemented");};

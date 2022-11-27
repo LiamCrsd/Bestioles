@@ -1,4 +1,7 @@
 #include "Ecosystem.h"
+#include "BestioleFactory.h"
+#include "CollectionBestiole.h"
+#include "IBestiole.h"
 
 #include <cstdlib>
 #include <ctime>
@@ -25,16 +28,22 @@ Ecosystem::~Ecosystem( void )
 
 }
 
+void Ecosystem::birthBestiole() {
+   std::shared_ptr<IBestiole> newbestiole = bestioleFactory.createBestiole();
+   collectionBestiole.addBestiole(newbestiole);
+}
+
 
 void Ecosystem::step( void )
 {
 
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
-   for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
+   std::vector<std::shared_ptr<IBestiole>> listeBestioles = collectionBestiole.getBestiolesList();
+   for ( std::vector<std::shared_ptr<IBestiole>>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
    {
 
-      it->action( *this );
-      it->draw( *this );
+      (*it)->move( this->getWidth(), this->getHeight() );
+      (*it)->draw( *this );
 
    } // for
 
@@ -46,11 +55,11 @@ int Ecosystem::nbVoisins( const Bestiole & b )
 
    int         nb = 0;
 
-
-   for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
-      if ( !(b == *it) && b.jeTeVois(*it) )
+   /*std::vector<std::shared_ptr<IBestiole>> listeBestioles = collectionBestiole.getBestiolesList();
+   for ( std::vector<std::shared_ptr<IBestiole>>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
+      if ( !(b == **it) && b.jeTeVois(**it) )
          ++nb;
 
-   return nb;
+   return nb;*/
 
 }
