@@ -143,6 +143,22 @@ int Bestiole::getID() const {
    return id;
 }
 
+int Bestiole::getX() const {
+   return x;
+}
+
+int Bestiole::getY() const {
+   return y;
+}
+
+double Bestiole::getSize() const {
+   return size;
+}
+
+double Bestiole::getDeathRate() const {
+   return deathRate;
+}
+
 
 bool Bestiole::jeTeVois( const Bestiole & b ) const
 {
@@ -155,8 +171,16 @@ bool Bestiole::jeTeVois( const Bestiole & b ) const
 
 }
 
-bool Bestiole::isDead() { throw std::invalid_argument("Not implemented");};
+bool Bestiole::isDead() const { return dead; };
+void Bestiole::setDead(bool isDead) { 
+   cout << "Bestiole " << id << " is dead by collision" << endl; 
+   dead = isDead; 
+};
+
 bool Bestiole::atBorder() { throw std::invalid_argument("Not implemented");};
-void Bestiole::resolveCollision() { throw std::invalid_argument("Not implemented");};
+void Bestiole::resolveCollision() { 
+   //cout << "Bestiole " << id << " did collide without dying" << endl; 
+   direction = fmod(direction - M_PI, 2*M_PI);
+};
 void Bestiole::resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){ throw std::invalid_argument("Not implemented");};
 bool Bestiole::doClone() { throw std::invalid_argument("Not implemented");};

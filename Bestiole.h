@@ -48,7 +48,9 @@ public :                                           // Forme canonique :
    Bestiole( const Bestiole & b );                 // Constructeur de copies
    ~Bestiole( void );                              // Destructeur
    
-   bool isDead();
+   bool isDead() const;
+   void setDead(bool isDead);
+
 	bool atBorder();
 	void resolveCollision();
 	void resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors);
@@ -58,6 +60,10 @@ public :                                           // Forme canonique :
 
    bool jeTeVois( const Bestiole & b ) const;
    int getID() const;
+   int getX() const;
+	int getY() const;
+	double getSize() const;
+	double getDeathRate() const;
 };
 
 #endif
