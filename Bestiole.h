@@ -19,7 +19,7 @@ private :
    static int              next;
 
 private :
-   int               identite;
+   int               id;
    int               x, y;
    double            direction;
    double            speed;
@@ -57,8 +57,7 @@ public :                                           // Forme canonique :
    void draw( UImg & support );
 
    bool jeTeVois( const Bestiole & b ) const;
-
-   friend bool operator==( const Bestiole & b1, const Bestiole & b2 );
+   int getID() const;
 };
 
 #endif

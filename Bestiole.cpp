@@ -1,5 +1,4 @@
 #include "Bestiole.h"
-
 #include "Ecosystem.h"
 
 #include <cstdlib>
@@ -40,9 +39,9 @@ Bestiole::Bestiole(
    deathRate(deathRate)
 {
 
-   identite = ++next;
+   id = ++next;
 
-   cout << "const Bestiole (" << identite << ") of size " << size << endl;
+   cout << "const Bestiole (" << id << ") of size " << size << endl;
 
    age = 0;
    dead = false;
@@ -59,9 +58,9 @@ Bestiole::Bestiole(
 Bestiole::Bestiole( const Bestiole & b )
 {
 
-   identite = ++next;
+   id = ++next;
 
-   cout << "const Bestiole (" << identite << ") par copie" << endl;
+   cout << "const Bestiole (" << id << ") par copie" << endl;
 
    x = b.x;
    y = b.y;
@@ -87,7 +86,7 @@ Bestiole::~Bestiole( void )
 
    delete[] couleur;
 
-   cout << "dest Bestiole " << identite << endl;
+   cout << "dest Bestiole " << id << endl;
 
 }
 
@@ -140,12 +139,8 @@ void Bestiole::draw( UImg & support )
 
 }
 
-
-bool operator==( const Bestiole & b1, const Bestiole & b2 )
-{
-
-   return ( b1.identite == b2.identite );
-
+int Bestiole::getID() const {
+   return id;
 }
 
 
