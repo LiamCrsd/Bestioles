@@ -1,6 +1,7 @@
 #include "Ears.h"
 #include <iostream>
 Ears::Ears(double distance, double rate) {
+    //std::cout << "const ears with dist" << distance << std::endl;
     detectionDistance = distance;
     detectionRate = rate;
 }

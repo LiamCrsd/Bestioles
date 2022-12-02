@@ -231,7 +231,7 @@ bool Bestiole::doClone() { throw std::invalid_argument("Not implemented");};
 void Bestiole::grow_old() {
   age += 1;
   if (age >= ageLim) {
-    cout << "Bestiole " << id << " is dead by old" << endl;
+    //cout << "Bestiole " << id << " is dead by old" << endl;
     dead = true;
   }
 }
