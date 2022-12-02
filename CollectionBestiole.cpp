@@ -79,3 +79,24 @@ void CollectionBestiole::processCollisions() {
 		getCollisions((*it));
 	}
 }
+
+void CollectionBestiole::processDetections() {
+	for ( std::vector<std::shared_ptr<IBestiole>>::iterator it = bestioles.begin() ; it != bestioles.end() ; ++it )
+	{
+		std::vector<std::shared_ptr<IBestiole>> detectedBestioles = getDetections((*it));
+		(*it)->resolveDetections(detectedBestioles);
+	}
+}
+
+std::vector<std::shared_ptr<IBestiole>> CollectionBestiole::getDetections(std::shared_ptr<IBestiole> ptrBestiole) {
+	std::vector<std::shared_ptr<IBestiole>> detectedBestioles = std::vector<std::shared_ptr<IBestiole>>();
+	for ( std::vector<std::shared_ptr<IBestiole>>::iterator it = bestioles.begin() ; it != bestioles.end() ; ++it ) {
+		if ((*it)->getID() != ptrBestiole->getID()) {
+			if (ptrBestiole->iSeeU(**it)) {
+				detectedBestioles.push_back(*it);
+			}
+		}
+	}
+
+	return detectedBestioles;
+}

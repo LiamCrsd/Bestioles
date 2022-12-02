@@ -44,7 +44,7 @@ void Ecosystem::step( void )
       //cout << "Birthing new bestiole randomly" << endl;
       birthBestiole();
    }
-
+   collectionBestiole.processDetections();
    collectionBestiole.processCollisions();
 
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );

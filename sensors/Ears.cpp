@@ -1,4 +1,5 @@
 #include "Ears.h"
+#include <iostream>
 Ears::Ears(double distance, double rate) {
     detectionDistance = distance;
     detectionRate = rate;

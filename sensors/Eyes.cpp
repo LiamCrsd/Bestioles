@@ -1,5 +1,6 @@
 #include "Eyes.h"
 #include <cmath>
+#include <iostream>
 
 Eyes::Eyes(double distance, double rate, double view) {
     detectionDistance = distance;
