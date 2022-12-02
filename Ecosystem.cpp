@@ -44,7 +44,7 @@ void Ecosystem::step( void )
       //cout << "Birthing new bestiole randomly" << endl;
       birthBestiole();
    }
-
+   collectionBestiole.processDetections();
    collectionBestiole.processCollisions();
 
    collectionBestiole.processOld();

@@ -1,6 +1,5 @@
 #include "Bestiole.h"
 #include "Ecosystem.h"
-
 #include <cstdlib>
 #include <cmath>
 
@@ -10,7 +9,7 @@ const double      Bestiole::LIMITE_VUE = 30.;
 int               Bestiole::next = 0;
 
 
-Bestiole::Bestiole( void ) : Bestiole(0, 0, 0, 0, 0 ,0, 0, 0) {
+Bestiole::Bestiole( void ) : Bestiole(0, 0, 0, 0, 0 ,0, 0, 0, std::vector<std::shared_ptr<Sensor>>()) {
 
    cout << "const Bestiole by default" << endl;
    direction = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
@@ -27,16 +26,18 @@ Bestiole::Bestiole(
    double size,
    int ageLim,
    double cloneRate,
-   double deathRate
-   ) :
-   x(startX),
-   y(startY),
+   double deathRate,
+   std::vector<std::shared_ptr<Sensor>> sensors
+   ) : 
+   x(startX), 
+   y(startY), 
    direction(startDir),
    speed(startSpeed),
    size(size),
    ageLim(ageLim),
    cloneRate(cloneRate),
-   deathRate(deathRate)
+   deathRate(deathRate),
+   sensors(sensors)
 {
 
    id = ++next;
@@ -77,7 +78,7 @@ Bestiole::Bestiole( const Bestiole & b )
    cumulX = cumulY = 0.;
    couleur = new T[ 3 ];
    memcpy( couleur, b.couleur, 3*sizeof(T) );
-
+   sensors = b.sensors;
 }
 
 
@@ -151,6 +152,10 @@ int Bestiole::getY() const {
    return y;
 }
 
+double Bestiole::getDirection() const {
+   return direction;
+}
+
 double Bestiole::getSize() const {
    return size;
 }
@@ -160,15 +165,13 @@ double Bestiole::getDeathRate() const {
 }
 
 
-bool Bestiole::jeTeVois( const Bestiole & b ) const
+bool Bestiole::iSeeU( const IBestiole & b ) const
 {
-
-   double         dist;
-
-
-   dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
-   return ( dist <= LIMITE_VUE );
-
+   for (std::vector<std::shared_ptr<Sensor>>::const_iterator it = sensors.begin() ; it != sensors.end() ; ++it) {
+      if ((*it)->isDetected(Bestiole::x, Bestiole::y, Bestiole::direction,
+                            b.getX(), b.getY(), 0)) {return true;} //TODO : put real camoo value instead of the "0"
+   }
+   return false;
 }
 
 bool Bestiole::isDead() const { return dead; };
@@ -182,13 +185,17 @@ void Bestiole::resolveCollision() {
    //cout << "Bestiole " << id << " did collide without dying" << endl;
    direction = fmod(direction - M_PI, 2*M_PI);
 };
-void Bestiole::resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){ throw std::invalid_argument("Not implemented");};
+void Bestiole::resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
+   if (detectedNeighbors.size() >= 1) {
+      //cout << "Bestiole " << id << " detected " << detectedNeighbors.size() << " other bestioles" << endl;
+   }
+}; //FRED FAIT TON TAF
 bool Bestiole::doClone() { throw std::invalid_argument("Not implemented");};
 
 void Bestiole::grow_old() {
   age += 1;
   if (age >= ageLim) {
-    cout << "Bestiole " << id << " is dead by old" << endl;
+    //cout << "Bestiole " << id << " is dead by old" << endl;
     dead = true;
   }
 }
