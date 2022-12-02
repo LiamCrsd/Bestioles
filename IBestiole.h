@@ -26,6 +26,7 @@ public:
 	virtual int getY() const = 0;
 	virtual double getSize() const = 0;
 	virtual double getDeathRate() const = 0;
+	virtual void grow_old()=0;
 };
 
 #endif

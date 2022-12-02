@@ -11,7 +11,7 @@ class Config {
             double detectionRateMax,double detectionDistanceMin, double detectionDistanceMax,
             double eyesRate, double earsRate, double speedFactorMax, double resistanceFactorMax,
             double slowFactorMax, double camouflageFactorMin, double camouflageFactorMax,
-            double scaredSpeedMax, int scaredThresholdMax, double switchRateMax) : 
+            double scaredSpeedMax, int scaredThresholdMax, double switchRateMax) :
                 width(width),height(height),minSize(minSize),maxSize(maxSize), minSpeed(minSpeed),
                 maxSpeed(maxSpeed),ageMin(ageMin),ageMax(ageMax),
                 birthRate(birthRate),deathRateMax(deathRateMax),cloneRateMax(cloneRateMax),
@@ -43,8 +43,8 @@ class Config {
             width = 640;
             height = 480;
             minSize = 3;
-            maxSize = 15; 
-            minSpeed = 1; 
+            maxSize = 15;
+            minSpeed = 1;
             maxSpeed = 10;
             ageMin = 100;
             ageMax = 400;
@@ -53,7 +53,7 @@ class Config {
             repartition[2] = 0.2; //kamikazeRate
             repartition[3] = 0.2; //farsightedRate
             repartition[4] = 0.2; //multiplePersonnalityRate
-            birthRate = 0.01;
+            birthRate = 0.5;
             deathRateMax = 0.5;
             cloneRateMax = 0.01;
             fieldViewMin = M_PI/4;
@@ -94,7 +94,7 @@ class Config {
 
         Config(Config &other) = delete;
         void operator=(const Config &) = delete;
-    
+
         static Config& GetInstance() {
             static Config config_;
             return config_;

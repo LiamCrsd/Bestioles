@@ -37,17 +37,17 @@ private :
 public :                                           // Forme canonique :
    Bestiole( void );                               // Constructeur par defaut
    Bestiole(                                       // Constructor of factory
-      int x, int y, 
-      double direction, 
-      double speed, 
-      double size, 
-      int ageLim, 
-      double cloneRate, 
+      int x, int y,
+      double direction,
+      double speed,
+      double size,
+      int ageLim,
+      double cloneRate,
       double deathRate
    );
    Bestiole( const Bestiole & b );                 // Constructeur de copies
    ~Bestiole( void );                              // Destructeur
-   
+
    bool isDead() const;
    void setDead(bool isDead);
 
@@ -67,6 +67,7 @@ public :                                           // Forme canonique :
 	int getY() const;
 	double getSize() const;
 	double getDeathRate() const;
+  void grow_old();
 };
 
 #endif
