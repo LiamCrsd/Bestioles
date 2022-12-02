@@ -1,6 +1,12 @@
 #include "Bestiole.h"
 #include "Ecosystem.h"
 
+#include "Gregarious.h"
+#include "Fearful.h"
+#include "Kamikaze.h"
+#include "Farsighted.h"
+#include "MultiplePersonnality.h"
+
 #include <cstdlib>
 #include <cmath>
 
@@ -14,7 +20,8 @@ Bestiole::Bestiole( void ) : Bestiole(0, 0, 0, 0, 0 ,0, 0, 0) {
 
    cout << "const Bestiole by default" << endl;
    direction = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
-   speed = static_cast<double>( rand() )/RAND_MAX*10.;
+   currentSpeed = static_cast<double>( rand() )/RAND_MAX*10.;
+   initialSpeed = currentSpeed;
    size = 8.;
 
 }
@@ -32,7 +39,8 @@ Bestiole::Bestiole(
    x(startX),
    y(startY),
    direction(startDir),
-   speed(startSpeed),
+   currentSpeed(startSpeed),
+   initialSpeed(startSpeed),
    size(size),
    ageLim(ageLim),
    cloneRate(cloneRate),
@@ -52,6 +60,22 @@ Bestiole::Bestiole(
    couleur[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
    couleur[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
 
+   int randomBehavior = rand()%5;
+   if (randomBehavior==0){
+        behavior = Gregarious();
+    }
+    else if (randomBehavior==1){
+        behavior = Fearful();
+    }
+    else if (randomBehavior==2){
+        behavior = Kamikaze();
+    }
+    else if (randomBehavior==3){
+        behavior = Farsighted();
+    }
+    else{
+      behavior = MultiplePersonnality();
+    }
 }
 
 
@@ -65,7 +89,8 @@ Bestiole::Bestiole( const Bestiole & b )
    x = b.x;
    y = b.y;
    direction = b.direction;
-   speed = b.speed;
+   currentSpeed = b.currentSpeed;
+   initialSpeed = b.initialSpeed;
    size = b.size;
    ageLim = b.ageLim;
    cloneRate = b.cloneRate;
@@ -95,8 +120,8 @@ void Bestiole::move( int xLim, int yLim )
 {
 
    double         nx, ny;
-   double         dx = cos( direction )*speed;
-   double         dy = -sin( direction )*speed;
+   double         dx = cos( direction )*currentSpeed;
+   double         dy = -sin( direction )*currentSpeed;
    int            cx, cy;
 
 
@@ -123,7 +148,7 @@ void Bestiole::move( int xLim, int yLim )
       y = static_cast<int>( ny );
       cumulY += ny - y;
    }
-
+   currentSpeed = initialSpeed;
 }
 
 
@@ -182,7 +207,11 @@ void Bestiole::resolveCollision() {
    //cout << "Bestiole " << id << " did collide without dying" << endl;
    direction = fmod(direction - M_PI, 2*M_PI);
 };
-void Bestiole::resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){ throw std::invalid_argument("Not implemented");};
+void Bestiole::resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
+   currentSpeed = behavior.calcSpeed(x,y,currentSpeed,direction,detectedNeighbors);
+   direction = behavior.calcDirection(x,y,currentSpeed,direction,detectedNeighbors);
+};
+
 bool Bestiole::doClone() { throw std::invalid_argument("Not implemented");};
 
 void Bestiole::grow_old() {

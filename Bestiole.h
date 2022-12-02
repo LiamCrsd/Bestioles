@@ -3,6 +3,7 @@
 
 #include "IBestiole.h"
 #include "UImg.h"
+#include "Behavior.h"
 #include <iostream>
 
 
@@ -22,7 +23,8 @@ private :
    int               id;
    int               x, y;
    double            direction;
-   double            speed;
+   double            currentSpeed;
+   double            initialSpeed;
    double            size;
    int               ageLim;
    double            cloneRate;
@@ -33,13 +35,14 @@ private :
 
    double            cumulX, cumulY;
    T               * couleur;
+   Behavior behavior;
 
 public :                                           // Forme canonique :
    Bestiole( void );                               // Constructeur par defaut
    Bestiole(                                       // Constructor of factory
       int x, int y,
       double direction,
-      double speed,
+      double startSpeed,
       double size,
       int ageLim,
       double cloneRate,
@@ -60,14 +63,14 @@ public :                                           // Forme canonique :
 
    bool jeTeVois( const Bestiole & b ) const;
    int getID() const;
-   double getSpeed(){return speed;};
+   double getSpeed(){return currentSpeed;};
    double getDirection(){return direction;};
    std::pair<int,int> getPos(){return std::pair<int,int> (x,y);};
    int getX() const;
 	int getY() const;
 	double getSize() const;
 	double getDeathRate() const;
-  void grow_old();
+   void grow_old();
 };
 
 #endif

@@ -6,6 +6,8 @@
 #include <memory>
 class Behavior{
     public:
+        Behavior() = default;
+        ~Behavior() = default;
         virtual double calcSpeed(int x,int y,double currentSpeed,double currentDirection, std::vector<std::shared_ptr<IBestiole>> detectedNeighbors) const;
         virtual double calcDirection(int x,int y,double currentSpeed,double currentDirection, std::vector<std::shared_ptr<IBestiole>> detectedNeighbors) const;
 };

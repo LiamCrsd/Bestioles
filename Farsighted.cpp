@@ -5,16 +5,17 @@ double Farsighted::calcDirection(int x,int y,double currentSpeed,double currentD
     double minDistance = std::numeric_limits<double>::max() ;
     std::shared_ptr<IBestiole> closestBestiole; 
     double distance;
+    std::pair<int,int> pos;
     for (auto & bestiole : detectedNeighbors){
-        std::pair<int,int> pos = bestiole->getPos();
+        pos = bestiole->getPos();
         distance = sqrt(pow(x-pos.first,2))
             + pow(y-pos.second,2);
         if (distance<minDistance){
             minDistance = distance;
             closestBestiole = bestiole;
         }
+    }
     pos = closestBestiole->getPos();
     return std::atan2(x-pos.first,y-pos.second);
-    }
 
 }

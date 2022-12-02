@@ -9,7 +9,8 @@ MultiplePersonnality::MultiplePersonnality(){
     behavior = randomBehavior();
     switchRate = static_cast<double>(rand())/RAND_MAX*Config::GetInstance().switchRateMax;
 }
-Behavior MultiplePersonnality::randomBehavior(){
+
+Behavior MultiplePersonnality::randomBehavior() const{
     Behavior behav;
     int random = rand()%4;
     if (random==0){
@@ -26,6 +27,7 @@ Behavior MultiplePersonnality::randomBehavior(){
     }
     return behav;
 }
+
 void MultiplePersonnality::switchBehavior(){
     std::random_device rd;
     std::mt19937 gen(rd());
