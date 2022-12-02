@@ -1,10 +1,12 @@
 #ifndef _BESTIOLE_H_
 #define _BESTIOLE_H_
 
+#include <vector>
 #include "IBestiole.h"
 #include "UImg.h"
 #include <iostream>
 #include "accessories/Accessory.h"
+#include "sensors/Sensor.h"
 
 
 using namespace std;
@@ -28,6 +30,7 @@ private :
    int               ageLim;
    double            cloneRate;
    double            deathRate;
+   std::vector<std::shared_ptr<Sensor>> sensors;
    std::vector<std::shared_ptr<Accessory>> accessories;
    int               age;
    bool              dead;
@@ -35,16 +38,19 @@ private :
    double            cumulX, cumulY;
    T               * couleur;
 
+
 public :                                           // Forme canonique :
    Bestiole( void );                               // Constructeur par defaut
-   Bestiole(                                       // Constructor of factory
-      int x, int y,
+   Bestiole(   
+      int startX,
+      int startY,                                    // Constructor of factory      int x, int y,
       double direction,
       double speed,
       double size,
       int ageLim,
       double cloneRate,
       double deathRate,
+      std::vector<std::shared_ptr<Sensor>> sensors,
       std::vector<std::shared_ptr<Accessory>> accessories
    );
    Bestiole( const Bestiole & b );                 // Constructeur de copies
@@ -60,10 +66,11 @@ public :                                           // Forme canonique :
    void move( int xLim, int yLim ); 
    void draw( UImg & support );
 
-   bool jeTeVois( const Bestiole & b ) const;
+   bool iSeeU( const IBestiole & b ) const;
    int getID() const;
    int getX() const;
 	int getY() const;
+   double getDirection() const;
 	double getSize() const;
 	double getDeathRate() const;
    void grow_old();
