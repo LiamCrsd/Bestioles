@@ -37,6 +37,15 @@ void Ecosystem::birthBestiole() {
 
 void Ecosystem::step( void )
 {
+   Config& config = Config::GetInstance();
+
+   double birthRoll = static_cast<double>( std::rand() )/RAND_MAX;
+   if (birthRoll < config.birthRate) {
+      //cout << "Birthing new bestiole randomly" << endl;
+      birthBestiole();
+   }
+
+   collectionBestiole.processCollisions();
 
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
    std::vector<std::shared_ptr<IBestiole>> listeBestioles = collectionBestiole.getBestiolesList();

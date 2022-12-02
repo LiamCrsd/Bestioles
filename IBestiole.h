@@ -10,7 +10,8 @@ class IBestiole
 public:
 	virtual ~IBestiole() {};
 
-	virtual bool isDead()=0;
+	virtual bool isDead() const =0;
+	virtual void setDead(bool isDead)=0;
 	virtual bool atBorder()=0;
 	virtual void resolveCollision()=0;
 	virtual void resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors)=0;
@@ -21,6 +22,10 @@ public:
 	virtual double getSpeed() = 0;
 	virtual double getDirection() = 0;
 	virtual std::pair<int,int> getPos() = 0;
+	virtual int getX() const = 0;
+	virtual int getY() const = 0;
+	virtual double getSize() const = 0;
+	virtual double getDeathRate() const = 0;
 };
 
 #endif
