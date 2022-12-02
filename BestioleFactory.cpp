@@ -3,6 +3,10 @@
 #include "Config.h"
 #include <memory>
 #include <stdexcept>
+#include "sensors/Eyes.h"
+#include "sensors/Ears.h"
+#include "sensors/Sensor.h"
+
 
 std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
 
@@ -16,8 +20,16 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
     int ageLim = static_cast<double>( rand() )/RAND_MAX*(config.ageMax - config.ageMin) + config.ageMin;
     double deathRate = static_cast<double>( rand() )/RAND_MAX*config.deathRateMax;
     double cloneRate = static_cast<double>( rand() )/RAND_MAX*config.cloneRateMax;
-
-    std::shared_ptr<IBestiole> bestiole (new Bestiole(xpos, ypos, direction, speed, size, ageLim, cloneRate, deathRate));
+    std::vector<std::shared_ptr<Sensor>> sensors;
+    if (static_cast<double>( rand() )/RAND_MAX > 0.5) {
+        std::shared_ptr<Ears> ears (new Ears(rand()%300, static_cast<double>( rand() )/RAND_MAX));
+        sensors.push_back(ears);
+    }
+    if (static_cast<double>( rand() )/RAND_MAX > 0.5) {
+        std::shared_ptr<Eyes> eyes (new Eyes(rand()%300, static_cast<double>( rand() )/RAND_MAX, std::fmod(rand(),(M_PI/2))));
+        sensors.push_back(eyes);
+    }
+    std::shared_ptr<IBestiole> bestiole (new Bestiole(xpos, ypos, direction, speed, size, ageLim, cloneRate, deathRate, sensors));
     return bestiole;
 }
 

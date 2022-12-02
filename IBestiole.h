@@ -24,8 +24,10 @@ public:
 	virtual std::pair<int,int> getPos() = 0;
 	virtual int getX() const = 0;
 	virtual int getY() const = 0;
+	virtual double getDirection() const = 0;
 	virtual double getSize() const = 0;
 	virtual double getDeathRate() const = 0;
+	virtual bool iSeeU( const IBestiole & b ) const = 0;
 	virtual void grow_old()=0;
 };
 

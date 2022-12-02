@@ -12,6 +12,7 @@ class Fearful:public Behavior{
     public:
         Fearful(double scaredSpeed,int scaredThreshold):scaredSpeed(scaredSpeed),scaredThreshold(scaredThreshold){};
         Fearful(){
+            std::cout<<"Fearful has been created"<<std::endl;
             Config& config = Config::GetInstance();
             scaredSpeed = static_cast<double>(rand())/RAND_MAX*config.scaredSpeedMax+1;
             scaredThreshold = rand()%(config.scaredThresholdMax-1)+1;

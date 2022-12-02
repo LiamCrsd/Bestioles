@@ -6,6 +6,7 @@
 #include "Config.h"
 #include <random>
 MultiplePersonnality::MultiplePersonnality(){
+    std::cout<<"Multiple personnality has been created"<<std::endl;
     behavior = randomBehavior();
     switchRate = static_cast<double>(rand())/RAND_MAX*Config::GetInstance().switchRateMax;
 }
