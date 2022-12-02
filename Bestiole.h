@@ -4,6 +4,7 @@
 #include "IBestiole.h"
 #include "UImg.h"
 #include <iostream>
+#include "accessories/Accessory.h"
 
 
 using namespace std;
@@ -27,7 +28,7 @@ private :
    int               ageLim;
    double            cloneRate;
    double            deathRate;
-
+   std::vector<std::shared_ptr<Accessory>> accessories;
    int               age;
    bool              dead;
 
@@ -43,7 +44,8 @@ public :                                           // Forme canonique :
       double size,
       int ageLim,
       double cloneRate,
-      double deathRate
+      double deathRate,
+      std::vector<std::shared_ptr<Accessory>> accessories
    );
    Bestiole( const Bestiole & b );                 // Constructeur de copies
    ~Bestiole( void );                              // Destructeur
@@ -55,7 +57,7 @@ public :                                           // Forme canonique :
 	void resolveCollision();
 	void resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors);
 	bool doClone();
-   void move( int xLim, int yLim );
+   void move( int xLim, int yLim ); 
    void draw( UImg & support );
 
    bool jeTeVois( const Bestiole & b ) const;
@@ -64,7 +66,9 @@ public :                                           // Forme canonique :
 	int getY() const;
 	double getSize() const;
 	double getDeathRate() const;
-  void grow_old();
+   void grow_old();
+   double getCurrentSpeed() const;
+   double getCamouflage() const;
 };
 
 #endif

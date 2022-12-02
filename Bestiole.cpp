@@ -10,7 +10,7 @@ const double      Bestiole::LIMITE_VUE = 30.;
 int               Bestiole::next = 0;
 
 
-Bestiole::Bestiole( void ) : Bestiole(0, 0, 0, 0, 0 ,0, 0, 0) {
+Bestiole::Bestiole( void ) : Bestiole(0, 0, 0, 0, 0 ,0, 0, 0, std::vector<std::shared_ptr<Accessory>>()) {
 
    cout << "const Bestiole by default" << endl;
    direction = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
@@ -27,7 +27,8 @@ Bestiole::Bestiole(
    double size,
    int ageLim,
    double cloneRate,
-   double deathRate
+   double deathRate,
+   std::vector<std::shared_ptr<Accessory>> accessories
    ) :
    x(startX),
    y(startY),
@@ -36,7 +37,8 @@ Bestiole::Bestiole(
    size(size),
    ageLim(ageLim),
    cloneRate(cloneRate),
-   deathRate(deathRate)
+   deathRate(deathRate),
+   accessories(accessories)
 {
 
    id = ++next;
@@ -93,10 +95,10 @@ Bestiole::~Bestiole( void )
 
 void Bestiole::move( int xLim, int yLim )
 {
-
+   double         realSpeed = getCurrentSpeed();
    double         nx, ny;
-   double         dx = cos( direction )*speed;
-   double         dy = -sin( direction )*speed;
+   double         dx = cos( direction )*realSpeed;
+   double         dy = -sin( direction )*realSpeed;
    int            cx, cy;
 
 
@@ -155,11 +157,6 @@ double Bestiole::getSize() const {
    return size;
 }
 
-double Bestiole::getDeathRate() const {
-   return deathRate;
-}
-
-
 bool Bestiole::jeTeVois( const Bestiole & b ) const
 {
 
@@ -191,4 +188,28 @@ void Bestiole::grow_old() {
     cout << "Bestiole " << id << " is dead by old" << endl;
     dead = true;
   }
+}
+
+double Bestiole::getCurrentSpeed() const{
+   double multiplier = 1;
+   for (std::vector<std::shared_ptr<Accessory>>::const_iterator it = accessories.begin(); it != accessories.end(); ++it ) {
+      multiplier *= (**it).getSpeedFactor();
+   }
+   return multiplier*speed;
+}
+
+double Bestiole::getDeathRate() const{
+   double multiplier = 1;
+   for (std::vector<std::shared_ptr<Accessory>>::const_iterator it = accessories.begin(); it != accessories.end(); ++it ) {
+      multiplier *= (**it).getResistanceFactor();
+   }
+   return multiplier*deathRate;
+}
+
+double Bestiole::getCamouflage() const{
+   double value = 0;
+   for (std::vector<std::shared_ptr<Accessory>>::const_iterator it = accessories.begin(); it != accessories.end(); ++it ) {
+      value += (**it).getCamouflageFactor();
+   }
+   return value;
 }

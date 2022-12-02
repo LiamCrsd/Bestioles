@@ -3,6 +3,10 @@
 #include "Config.h"
 #include <memory>
 #include <stdexcept>
+#include "accessories/Accessory.h"
+#include "accessories/Shell.h"
+#include "accessories/Fins.h"
+#include "accessories/Camouflage.h"
 
 std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
 
@@ -16,8 +20,20 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
     int ageLim = static_cast<double>( rand() )/RAND_MAX*(config.ageMax - config.ageMin) + config.ageMin;
     double deathRate = static_cast<double>( rand() )/RAND_MAX*config.deathRateMax;
     double cloneRate = static_cast<double>( rand() )/RAND_MAX*config.cloneRateMax;
-
-    std::shared_ptr<IBestiole> bestiole (new Bestiole(xpos, ypos, direction, speed, size, ageLim, cloneRate, deathRate));
+    std::vector<std::shared_ptr<Accessory>> accessories; 
+    if (static_cast<double>( rand() )/RAND_MAX > 1/3) {
+        std::shared_ptr<Shell> shellPtr (new Shell((static_cast<double>( rand() )/RAND_MAX)*(config.resistanceFactorMax- config.resistanceFactorMin) + config.resistanceFactorMin, (static_cast<double>( rand() )/RAND_MAX)*(config.slowFactorMax-config.slowFactorMin)+config.slowFactorMin));
+        accessories.push_back(shellPtr);
+    }
+    if (static_cast<double>( rand() )/RAND_MAX > 1/3) {
+        std::shared_ptr<Fins> finsPtr (new Fins((static_cast<double>( rand() )/RAND_MAX)*(config.speedFactorMax - config.speedFactorMin) + config.speedFactorMin));
+        accessories.push_back(finsPtr);
+    }
+    if (static_cast<double>( rand() )/RAND_MAX > 1/3) {
+        std::shared_ptr<Camouflage> camouflagePtr (new Camouflage((static_cast<double>( rand() )/RAND_MAX)*(config.camouflageFactorMax - config.camouflageFactorMin) + config.camouflageFactorMin));
+        accessories.push_back(camouflagePtr);
+    }
+    std::shared_ptr<IBestiole> bestiole (new Bestiole(xpos, ypos, direction, speed, size, ageLim, cloneRate, deathRate, accessories));
     return bestiole;
 }
 
