@@ -58,6 +58,9 @@ public :                                           // Forme canonique :
 
    bool jeTeVois( const Bestiole & b ) const;
    int getID() const;
+   double getSpeed(){return speed;};
+   double getDirection(){return direction;};
+   std::pair<int,int> getPos(){return std::pair<int,int> (x,y);};
 };
 
 #endif
