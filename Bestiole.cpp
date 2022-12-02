@@ -57,26 +57,37 @@ Bestiole::Bestiole(
 
    cumulX = cumulY = 0.;
    couleur = new T[ 3 ];
-   couleur[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
-   couleur[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
-   couleur[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
-
-   int randomBehavior = rand()%5;
+   int randomBehavior = 0;
    if (randomBehavior==0){
         behavior = Gregarious();
+        couleur[0]=0;
+        couleur[1]=255;
+        couleur[2]=0;
     }
-    else if (randomBehavior==1){
+    /**else if (randomBehavior==1){
         behavior = Fearful();
+        couleur[0]=255;
+        couleur[1]=0;
+        couleur[2]=255;
     }
     else if (randomBehavior==2){
         behavior = Kamikaze();
+        couleur[0]=255;
+        couleur[1]=0;
+        couleur[2]=0;
     }
     else if (randomBehavior==3){
         behavior = Farsighted();
+        couleur[0]=0;
+        couleur[1]=0;
+        couleur[2]=255;
     }
     else{
       behavior = MultiplePersonnality();
-    }
+      couleur[0]=0;
+      couleur[1]=0;
+      couleur[2]=0;
+    }**/
 }
 
 
