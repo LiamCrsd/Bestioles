@@ -53,11 +53,11 @@ class Config {
             repartition[2] = 0.2; //kamikazeRate
             repartition[3] = 0.2; //farsightedRate
             repartition[4] = 0.2; //multiplePersonnalityRate
-            birthRate = 0.5;
+            birthRate = 0.01;
             deathRateMax = 0.5;
             cloneRateMax = 0.01;
-            fieldViewMin = M_PI/4;
-            fieldViewMax = M_PI;
+            fieldViewMin = M_PI/8;
+            fieldViewMax = M_PI/2;
             detectionRateMin = 0.3;
             detectionRateMax = 1;
             detectionDistanceMin = 20;

@@ -22,11 +22,18 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
     double cloneRate = static_cast<double>( rand() )/RAND_MAX*config.cloneRateMax;
     std::vector<std::shared_ptr<Sensor>> sensors;
     if (static_cast<double>( rand() )/RAND_MAX > 0.5) {
-        std::shared_ptr<Ears> ears (new Ears(rand()%300, static_cast<double>( rand() )/RAND_MAX));
+        std::shared_ptr<Ears> ears (new Ears(
+            static_cast<double>( rand() )/RAND_MAX*(config.detectionDistanceMax - config.detectionDistanceMin) + config.detectionDistanceMin,
+            static_cast<double>( rand() )/RAND_MAX*(config.detectionRateMax - config.detectionRateMin) + config.detectionRateMin
+        ));
         sensors.push_back(ears);
     }
     if (static_cast<double>( rand() )/RAND_MAX > 0.5) {
-        std::shared_ptr<Eyes> eyes (new Eyes(rand()%300, static_cast<double>( rand() )/RAND_MAX, std::fmod(rand(),(M_PI/2))));
+        std::shared_ptr<Eyes> eyes (new Eyes(
+            static_cast<double>( rand() )/RAND_MAX*(config.detectionDistanceMax - config.detectionDistanceMin) + config.detectionDistanceMin, 
+            static_cast<double>( rand() )/RAND_MAX*(config.detectionRateMax - config.detectionRateMin) + config.detectionRateMin, 
+            static_cast<double>( rand() )/RAND_MAX*(config.fieldViewMax - config.fieldViewMin) + config.fieldViewMin
+        ));
         sensors.push_back(eyes);
     }
     std::shared_ptr<IBestiole> bestiole (new Bestiole(xpos, ypos, direction, speed, size, ageLim, cloneRate, deathRate, sensors));

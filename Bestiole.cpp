@@ -186,14 +186,16 @@ void Bestiole::resolveCollision() {
    direction = fmod(direction - M_PI, 2*M_PI);
 };
 void Bestiole::resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
-   cout << "Bestiole detected " << detectedNeighbors.size() << " other bestioles" << endl;
+   if (detectedNeighbors.size() >= 1) {
+      //cout << "Bestiole " << id << " detected " << detectedNeighbors.size() << " other bestioles" << endl;
+   }
 }; //FRED FAIT TON TAF
 bool Bestiole::doClone() { throw std::invalid_argument("Not implemented");};
 
 void Bestiole::grow_old() {
   age += 1;
   if (age >= ageLim) {
-    cout << "Bestiole " << id << " is dead by old" << endl;
+    //cout << "Bestiole " << id << " is dead by old" << endl;
     dead = true;
   }
 }

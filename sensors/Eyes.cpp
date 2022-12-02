@@ -3,6 +3,7 @@
 #include <iostream>
 
 Eyes::Eyes(double distance, double rate, double view) {
+    //std::cout << "const eyes with dist" << distance << " and FOV " << view << std::endl;
     detectionDistance = distance;
     detectionRate = rate;
     fieldView = view;
