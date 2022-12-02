@@ -1,18 +1,22 @@
 #include "Aquarium.h"
 
-#include "Milieu.h"
+#include "Ecosystem.h"
+#include "Config.h"
 
-
-Aquarium::Aquarium( int width, int height, int _delay ) : CImgDisplay(), delay( _delay )
+Aquarium::Aquarium( int _delay ) : CImgDisplay(), delay( _delay )
 {
 
    int         screenWidth = 1280; //screen_width();
    int         screenHeight = 1024; //screen_height();
 
+   Config& config = Config::GetInstance();
+   int width = config.width;
+   int height = config.height;
+   
 
    cout << "const Aquarium" << endl;
 
-   flotte = new Milieu( width, height );
+   flotte = new Ecosystem( width, height );
    assign( *flotte, "Simulation d'ecosysteme" );
 
    move( static_cast<int>((screenWidth-width)/2), static_cast<int>((screenHeight-height)/2) );

@@ -1,5 +1,5 @@
 #include "Aquarium.h"
-#include "Milieu.h"
+#include "Ecosystem.h"
 #include "Bestiole.h"
 
 #include <iostream>
@@ -9,12 +9,11 @@ using namespace std;
 
 int main()
 {
-
-   Aquarium       ecosysteme( 640, 480, 30 );
+   Aquarium aquarium( 30 );
 
    for ( int i = 1; i <= 20; ++i )
-      ecosysteme.getMilieu().addMember( Bestiole() );
-   ecosysteme.run();
+      aquarium.getEcosystem().birthBestiole();
+   aquarium.run();
 
 
    return 0;
