@@ -62,8 +62,25 @@ Bestiole::Bestiole( const Bestiole & b )
 
    cout << "const Bestiole (" << id << ") par copie" << endl;
 
-   x = b.x;
-   y = b.y;
+   // Generate random coordinates for the cloned bestiole such that its distance with the original
+   // is between 3*size and 4*size
+   
+   int randXAbs = rand()/RAND_MAX * (4*b.size);
+   int randXSign = ((rand() % 2) * 2) - 1;
+   int randX = randXSign * randXAbs;
+
+   int yMax = 4*b.size*sin(acos(randX/(4*b.size)));
+   int yMin = 0;
+   if (randX < 3*b.size) {
+      yMin = (3*b.size*sin(acos(randX/(3*b.size))));
+   }
+
+   int randYAbs = rand()/RAND_MAX*(yMax-yMin) + yMin;
+   int randYSign = ((rand() % 2) * 2) - 1;
+   int randY = randYSign * randYAbs;
+
+   x = b.x + randX; 
+   y = b.y + randY;
    direction = b.direction;
    speed = b.speed;
    size = b.size;
@@ -183,4 +200,7 @@ void Bestiole::resolveCollision() {
    direction = fmod(direction - M_PI, 2*M_PI);
 };
 void Bestiole::resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){ throw std::invalid_argument("Not implemented");};
-bool Bestiole::doClone() { throw std::invalid_argument("Not implemented");};
+bool Bestiole::doClone() {
+   double rollClone = static_cast<double>(rand())/RAND_MAX;
+   return (rollClone <cloneRate); 
+};

@@ -35,6 +35,7 @@ public :
    void step( void );
 
    void birthBestiole();
+   void cloneBestiole(const Bestiole& bestiole);
    int nbVoisins( const Bestiole & b );
 
 };
