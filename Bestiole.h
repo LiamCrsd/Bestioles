@@ -50,7 +50,7 @@ public :                                           // Forme canonique :
    );
    Bestiole( const Bestiole & b );                 // Constructeur de copies
    ~Bestiole( void );                              // Destructeur
-   
+
    bool isDead() const;
    void setDead(bool isDead);
 
@@ -68,6 +68,7 @@ public :                                           // Forme canonique :
    double getDirection() const;
 	double getSize() const;
 	double getDeathRate() const;
+  void grow_old();
 };
 
 #endif
