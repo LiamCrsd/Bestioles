@@ -84,3 +84,10 @@ void CollectionBestiole::processCollisions() {
 void CollectionBestiole::processDead() {
 	bestioles.erase(remove_if(bestioles.begin(),bestioles.end(), [] (std::shared_ptr<IBestiole> b) -> bool {return b -> isDead();} ),bestioles.end());
 }
+
+void CollectionBestiole::processOld() {
+	for ( std::vector<std::shared_ptr<IBestiole>>::iterator it = bestioles.begin() ; it != bestioles.end() ; ++it )
+	{
+		(*it) -> grow_old();
+	}
+}

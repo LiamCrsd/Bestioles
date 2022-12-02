@@ -20,17 +20,17 @@ Bestiole::Bestiole( void ) : Bestiole(0, 0, 0, 0, 0 ,0, 0, 0) {
 }
 
 Bestiole::Bestiole(
-   int startX, 
-   int startY, 
+   int startX,
+   int startY,
    double startDir,
    double startSpeed,
    double size,
    int ageLim,
    double cloneRate,
    double deathRate
-   ) : 
-   x(startX), 
-   y(startY), 
+   ) :
+   x(startX),
+   y(startY),
    direction(startDir),
    speed(startSpeed),
    size(size),
@@ -70,7 +70,7 @@ Bestiole::Bestiole( const Bestiole & b )
    ageLim = b.ageLim;
    cloneRate = b.cloneRate;
    deathRate = b.deathRate;
-   
+
    age = b.age;
    dead = b.dead;
 
@@ -172,15 +172,22 @@ bool Bestiole::jeTeVois( const Bestiole & b ) const
 }
 
 bool Bestiole::isDead() const { return dead; };
-void Bestiole::setDead(bool isDead) { 
-   cout << "Bestiole " << id << " is dead by collision" << endl; 
-   dead = isDead; 
+void Bestiole::setDead(bool isDead) {
+   cout << "Bestiole " << id << " is dead by collision" << endl;
+   dead = isDead;
 };
 
 bool Bestiole::atBorder() { throw std::invalid_argument("Not implemented");};
-void Bestiole::resolveCollision() { 
-   //cout << "Bestiole " << id << " did collide without dying" << endl; 
+void Bestiole::resolveCollision() {
+   //cout << "Bestiole " << id << " did collide without dying" << endl;
    direction = fmod(direction - M_PI, 2*M_PI);
 };
 void Bestiole::resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){ throw std::invalid_argument("Not implemented");};
 bool Bestiole::doClone() { throw std::invalid_argument("Not implemented");};
+
+void Bestiole::grow_old() {
+  age += 1;
+  if (age >= ageLim) {
+    dead = true;
+  }
+}

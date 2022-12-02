@@ -47,6 +47,8 @@ void Ecosystem::step( void )
 
    collectionBestiole.processCollisions();
 
+   collectionBestiole.processOld();
+
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
    std::vector<std::shared_ptr<IBestiole>> listeBestioles = collectionBestiole.getBestiolesList();
    for ( std::vector<std::shared_ptr<IBestiole>>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
