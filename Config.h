@@ -42,10 +42,10 @@ class Config {
         Config() {
             width = 640;
             height = 480;
-            minSize = 5;
-            maxSize = 10; 
+            minSize = 3;
+            maxSize = 15; 
             minSpeed = 1; 
-            maxSpeed = 20;
+            maxSpeed = 10;
             ageMin = 100;
             ageMax = 400;
             repartition[0] = 0.2; //gregariousRate

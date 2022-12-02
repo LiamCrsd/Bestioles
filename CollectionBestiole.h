@@ -18,7 +18,7 @@ public:
 	void addBestiole(std::shared_ptr<IBestiole> ptrBestiole);
 	void delBestiole(std::shared_ptr<IBestiole> ptrBestiole);
 
-	std::vector<std::shared_ptr<IBestiole>> getCollisions(std::shared_ptr<IBestiole> ptrBestiole);
+	bool getCollisions(std::shared_ptr<IBestiole> ptrBestiole);
 	std::vector<std::shared_ptr<IBestiole>> getDetections(std::shared_ptr<IBestiole> ptrBestiole);
 	void processCollisions();
 	std::vector<std::shared_ptr<IBestiole>> processDetections();
