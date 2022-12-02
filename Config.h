@@ -9,7 +9,7 @@ class Config {
             double farsightedRate, double multiplePersonnalityRate, double birthRate, double deathRateMax,
             double cloneRateMax,double fieldViewMin, double fieldViewMax, double detectionRateMin,
             double detectionRateMax,double detectionDistanceMin, double detectionDistanceMax,
-            double eyesRate, double earsRate,double speedFactorMin, double speedFactorMax, double ResistanceFactorMin,double resistanceFactorMax,
+            double eyesRate, double earsRate,double speedFactorMin, double speedFactorMax, double resistanceFactorMin, double resistanceFactorMax,
             double slowFactorMin, double slowFactorMax, double camouflageFactorMin, double camouflageFactorMax,
             double scaredSpeedMax, double scaredThresholdMax, double switchRateMax) :
                 width(width),height(height),minSize(minSize),maxSize(maxSize), minSpeed(minSpeed),
@@ -89,7 +89,8 @@ class Config {
         double detectionRateMin, detectionRateMax;
         double detectionDistanceMin, detectionDistanceMax;
         double eyesRate,earsRate;
-        double speedFactorMin, speedFactorMax, resistanceFactorMin, resistanceFactorMax, slowFactorMin, slowFactorMax;
+        double speedFactorMin, speedFactorMax, resistanceFactorMin, resistanceFactorMax;
+        double slowFactorMin, slowFactorMax;
         double camouflageFactorMin, camouflageFactorMax;
         double scaredSpeedMax, scaredThresholdMax;
         double switchRateMax;
