@@ -37,7 +37,7 @@ private :
 
    double                cumulX, cumulY;
    T                   * couleur;
-   Behavior behavior;
+   std::shared_ptr<Behavior> behavior;
 public :                                           // Forme canonique :
    Bestiole( void );                               // Constructeur par defaut
    Bestiole(                                       // Constructor of factory
@@ -48,6 +48,7 @@ public :                                           // Forme canonique :
       int ageLim, 
       double cloneRate, 
       double deathRate,
+      int behaviorIndex,
       std::vector<std::shared_ptr<Sensor>> sensors
    );
    Bestiole( const Bestiole & b );                 // Constructeur de copies

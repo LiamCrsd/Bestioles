@@ -15,7 +15,7 @@ const double      Bestiole::LIMITE_VUE = 30.;
 int               Bestiole::next = 0;
 
 
-Bestiole::Bestiole( void ) : Bestiole(0, 0, 0, 0, 0 ,0, 0, 0, std::vector<std::shared_ptr<Sensor>>()) {
+Bestiole::Bestiole( void ) : Bestiole(0, 0, 0, 0, 0 ,0, 0, 0,rand()%5,std::vector<std::shared_ptr<Sensor>>()) {
 
    cout << "const Bestiole by default" << endl;
    direction = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
@@ -34,6 +34,7 @@ Bestiole::Bestiole(
    int ageLim,
    double cloneRate,
    double deathRate,
+   int behaviorIndex,
    std::vector<std::shared_ptr<Sensor>> sensors
    ) : 
    x(startX), 
@@ -57,37 +58,36 @@ Bestiole::Bestiole(
 
    cumulX = cumulY = 0.;
    couleur = new T[ 3 ];
-   int randomBehavior = 0;
-   if (randomBehavior==0){
-        behavior = Gregarious();
+   if (behaviorIndex==0){
+        behavior = std::shared_ptr<Behavior>(new Gregarious());
         couleur[0]=0;
         couleur[1]=255;
         couleur[2]=0;
     }
-    /**else if (randomBehavior==1){
-        behavior = Fearful();
+   else if (behaviorIndex==1){
+        behavior = shared_ptr<Behavior>(new Fearful());
         couleur[0]=255;
         couleur[1]=0;
         couleur[2]=255;
     }
-    else if (randomBehavior==2){
-        behavior = Kamikaze();
+    else if (behaviorIndex==2){
+        behavior = shared_ptr<Behavior>(new Kamikaze());
         couleur[0]=255;
         couleur[1]=0;
         couleur[2]=0;
     }
-    else if (randomBehavior==3){
-        behavior = Farsighted();
+    else if (behaviorIndex==3){
+        behavior = shared_ptr<Behavior>(new Farsighted());
         couleur[0]=0;
         couleur[1]=0;
         couleur[2]=255;
     }
     else{
-      behavior = MultiplePersonnality();
+      behavior = shared_ptr<Behavior>(new MultiplePersonnality());
       couleur[0]=0;
       couleur[1]=0;
       couleur[2]=0;
-    }**/
+    }
 }
 
 
@@ -144,7 +144,7 @@ void Bestiole::move( int xLim, int yLim )
    ny = y + dy + cy;
 
    if ( (nx < 0) || (nx > xLim - 1) ) {
-      direction = M_PI - direction;
+      direction = fmod(M_PI - direction,2*M_PI);
       cumulX = 0.;
    }
    else {
@@ -153,7 +153,7 @@ void Bestiole::move( int xLim, int yLim )
    }
 
    if ( (ny < 0) || (ny > yLim - 1) ) {
-      direction = -direction;
+      direction = fmod(-direction,2*M_PI);
       cumulY = 0.;
    }
    else {
@@ -218,14 +218,18 @@ void Bestiole::setDead(bool isDead) {
 
 bool Bestiole::atBorder() { throw std::invalid_argument("Not implemented");};
 void Bestiole::resolveCollision() {
-   //cout << "Bestiole " << id << " did collide without dying" << endl;
+   cout << "Bestiole " << id << " did collide without dying" << endl;
    direction = fmod(direction - M_PI, 2*M_PI);
 };
 void Bestiole::resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
-   currentSpeed = behavior.calcSpeed(x,y,currentSpeed,direction,detectedNeighbors);
-   direction = behavior.calcDirection(x,y,currentSpeed,direction,detectedNeighbors);
-};
+   if (detectedNeighbors.size() >= 1) {
+      cout << "Bestiole " << id << " detected " << detectedNeighbors.size() << " other bestioles----------------------------" << endl;
 
+   }
+   currentSpeed = behavior->calcSpeed(x,y,currentSpeed,direction,detectedNeighbors);
+   direction = behavior->calcDirection(x,y,currentSpeed,direction,detectedNeighbors);
+   
+}; 
 bool Bestiole::doClone() { throw std::invalid_argument("Not implemented");};
 
 void Bestiole::grow_old() {

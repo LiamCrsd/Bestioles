@@ -46,8 +46,8 @@ class Config {
             maxSize = 15;
             minSpeed = 1;
             maxSpeed = 10;
-            ageMin = 100;
-            ageMax = 400;
+            ageMin = 200;
+            ageMax = 10000;
             repartition[0] = 0.2; //gregariousRate
             repartition[1] = 0.2; //fearfulRate
             repartition[2] = 0.2; //kamikazeRate
@@ -69,7 +69,7 @@ class Config {
             slowFactorMax = 2;
             camouflageFactorMin = 0.6;
             camouflageFactorMax = 1,
-            scaredSpeedMax = 5.0;
+            scaredSpeedMax = 3.0;
             scaredThresholdMax = 5;
             switchRateMax = 0.1;
         }

@@ -5,6 +5,7 @@
 #include "Config.h"
 #include <utility>
 #include <cstdlib>
+#include <algorithm>
 class Fearful:public Behavior{
     private:
         double scaredSpeed;
@@ -15,9 +16,9 @@ class Fearful:public Behavior{
             std::cout<<"Fearful has been created"<<std::endl;
             Config& config = Config::GetInstance();
             scaredSpeed = static_cast<double>(rand())/RAND_MAX*config.scaredSpeedMax+1;
-            scaredThreshold = rand()%(config.scaredThresholdMax-1)+1;
+            scaredThreshold = rand()%(std::max(config.scaredThresholdMax-1,1))+1;
         };
-        std::pair<double,double> calcMeanVec(double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors) const;
+        std::pair<double,double> calcBarycenterVec(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors) const;
         virtual double calcSpeed(int x,int y,double currentSpeed, double currentDirection, std::vector<std::shared_ptr<IBestiole>> detectedNeighbors) const override;
         virtual double calcDirection(int x,int y,double currentSpeed,double currentDirection, std::vector<std::shared_ptr<IBestiole>> detectedNeighbors) const override;
 };

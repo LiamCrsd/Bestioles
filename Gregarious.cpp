@@ -9,7 +9,7 @@ std::pair<double,double> Gregarious::calcMeanVec(double currentSpeed,double curr
         r = bestiole->getSpeed();
         theta = bestiole->getDirection();
         xm += r*std::cos(theta);
-        ym -= r*std::sin(theta);
+        ym += r*std::sin(theta);
     }
     if (detectedNeighbors.size()>0){
         xm /= detectedNeighbors.size();
@@ -17,7 +17,7 @@ std::pair<double,double> Gregarious::calcMeanVec(double currentSpeed,double curr
     }
     else{
         xm = currentSpeed*std::cos(currentDirection);
-        ym = -currentDirection*std::sin(currentDirection);
+        ym = currentSpeed*std::sin(currentDirection);
     }
     std::pair<double,double> cartesianVect(xm,ym);
     return cartesianVect;
@@ -25,6 +25,6 @@ std::pair<double,double> Gregarious::calcMeanVec(double currentSpeed,double curr
 
 double Gregarious::calcDirection(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors) const{
     std::pair<double,double> cartesianVect = calcMeanVec(currentSpeed,currentDirection,detectedNeighbors);
-    return std::atan2(cartesianVect.first,cartesianVect.second);
+    return fmod(std::atan2(cartesianVect.second,cartesianVect.first),2*M_PI);
 } 
 
