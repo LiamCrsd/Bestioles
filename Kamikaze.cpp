@@ -25,11 +25,11 @@ double Kamikaze::calcDirection(int x,int y,double currentSpeed,double currentDir
             std::cout<<"after detection minDistance:"<<minDistance<<std::endl;
         }
         pos = closestBestiole->getPos();
-        double theta = fmod(std::atan2(pos.second-y,pos.first-x),2*M_PI);
+        double theta = fmod(std::atan2(y-pos.second,pos.first-x),2*M_PI);
         std::cout<<"closest bestiole direction:"<<theta<<std::endl;
         std::cout<<"x after direction:"<<x+minDistance*std::cos(theta)<<std::endl;
-        std::cout<<"y after direction:"<<y+minDistance*std::sin(theta)<<std::endl;
-        return fmod(std::atan2(pos.second-y,pos.first-x),2*M_PI);
+        std::cout<<"y after direction:"<<y-minDistance*std::sin(theta)<<std::endl;
+        return fmod(std::atan2(y-pos.second,pos.first-x),2*M_PI);
     }
     else{
         return currentDirection;

@@ -40,8 +40,8 @@ class Config {
         }
 
         Config() {
-            width = 640;
-            height = 480;
+            width = 900;
+            height = 900;
             minSize = 3;
             maxSize = 15;
             minSpeed = 1;
