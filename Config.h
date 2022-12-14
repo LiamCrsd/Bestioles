@@ -46,7 +46,7 @@ class Config {
             maxSize = 15;
             minSpeed = 1;
             maxSpeed = 10;
-            ageMin = 200;
+            ageMin = 2000;
             ageMax = 10000;
             repartition[0] = 0.2; //gregariousRate
             repartition[1] = 0.2; //fearfulRate
@@ -58,10 +58,10 @@ class Config {
             cloneRateMax = 0.01;
             fieldViewMin = M_PI/8;
             fieldViewMax = M_PI/2;
-            detectionRateMin = 1;//0.3;
+            detectionRateMin = 0.3;
             detectionRateMax = 1;
-            detectionDistanceMin = 20000;
-            detectionDistanceMax = 100000;
+            detectionDistanceMin = 20;
+            detectionDistanceMax = 100;
             eyesRate = 0.5;
             earsRate = 0.5;
             speedFactorMin = 1.2;
@@ -74,7 +74,7 @@ class Config {
             camouflageFactorMax = 1,
             scaredSpeedMax = 3.0;
             scaredThresholdMax = 5;
-            switchRateMax = 0.1;
+            switchRateMax = 0.01;
         }
 
     public:

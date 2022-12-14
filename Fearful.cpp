@@ -1,6 +1,14 @@
 #include "Fearful.h"
 #include "Config.h"
 #include <cmath>
+
+Fearful::Fearful() {
+    //std::cout<<"Fearful has been created"<<std::endl;
+    Config& config = Config::GetInstance();
+    scaredSpeed = static_cast<double>(rand())/RAND_MAX*config.scaredSpeedMax+1;
+    scaredThreshold = rand()%(std::max(config.scaredThresholdMax-1,1))+1;
+}
+
 std::pair<double,double> Fearful::calcBarycenterVec(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
     double xm = 0.0;
     double ym = 0.0;

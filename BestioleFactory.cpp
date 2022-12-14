@@ -24,7 +24,7 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
     int ageLim = static_cast<double>( rand() )/RAND_MAX*(config.ageMax - config.ageMin) + config.ageMin;
     double deathRate = static_cast<double>( rand() )/RAND_MAX*config.deathRateMax;
     double cloneRate = static_cast<double>( rand() )/RAND_MAX*config.cloneRateMax;
-    int behaviorIndex = 3;//rand()%5;
+    int behaviorIndex = 4;//rand()%5;
 
     std::vector<std::shared_ptr<Accessory>> accessories; 
 

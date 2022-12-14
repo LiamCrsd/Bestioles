@@ -1,6 +1,11 @@
 #include "Kamikaze.h"
 #include <cmath>
 #include <limits>
+
+Kamikaze::Kamikaze(){
+    //std::cout<<"Kamikaze has been created"<<std::endl;
+}
+
 double Kamikaze::calcDirection(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
     //std::cout<<"calcDirection of Kamikaze called"<<std::endl;
     double minDistance = std::numeric_limits<double>::max() ;

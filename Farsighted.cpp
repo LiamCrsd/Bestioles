@@ -2,6 +2,11 @@
 #include "Config.h"
 #include <cmath>
 #include <limits>
+
+Farsighted::Farsighted() {
+    std::cout<<"Farsighted has been created"<<std::endl;
+}
+
 double Farsighted::calcDirection(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
     //std::cout<<"calcDirection of Farsighted called"<<std::endl;
     if (detectedNeighbors.size()>0){

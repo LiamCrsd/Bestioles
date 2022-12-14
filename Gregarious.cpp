@@ -1,6 +1,10 @@
 #include "Gregarious.h"
 #include <cmath>
 
+Gregarious::Gregarious() {
+    //std::cout<<"Gregarious has been created"<<std::endl;
+}
+
 std::pair<double,double> Gregarious::calcMeanVec(double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
     double theta;
     double xm = 0.0;

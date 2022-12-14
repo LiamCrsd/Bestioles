@@ -22,6 +22,8 @@ Gregarious.o : Gregarious.h Gregarious.cpp Behavior.h IBestiole.h
 	g++ -Wall -std=c++11 -c Gregarious.cpp -I .
 Fearful.o : Fearful.h Fearful.cpp Config.h Behavior.h IBestiole.h
 	g++ -Wall -std=c++11 -c Fearful.cpp -I .
+Farsighted.o : Farsighted.h Farsighted.cpp Config.h Behavior.h IBestiole.h
+	g++ -Wall -std=c++11 -c Farsighted.cpp -I .
 Kamikaze.o : Kamikaze.h Kamikaze.cpp Behavior.h IBestiole.h
 	g++ -Wall -std=c++11 -c Kamikaze.cpp -I .
 MultiplePersonnality.o : MultiplePersonnality.h MultiplePersonnality.cpp Behavior.h IBestiole.h Gregarious.h Fearful.h Kamikaze.h Farsighted.h Config.h

@@ -8,7 +8,7 @@
 #include <random>
 MultiplePersonnality::MultiplePersonnality(){
     std::cout<<"Multiple personnality has been created"<<std::endl;
-    behavior = std::shared_ptr<Behavior>(new Behavior());
+    behavior = std::unique_ptr<Behavior>(new Behavior());
     switchRate = static_cast<double>(rand())/RAND_MAX*Config::GetInstance().switchRateMax;
 }
 
@@ -16,19 +16,23 @@ void MultiplePersonnality::switchBehavior(){
     std::random_device rd;
     std::mt19937 gen(rd());
     if (std::bernoulli_distribution(switchRate)(gen)){
-        std::cout<<"Switch personnality"<<std::endl;
+        std::cout<<"Switch personnality for " << this << std::endl;
         int random = rand()%4;
         if (random==0){
-            behavior = std::shared_ptr<Behavior>(new Gregarious());
+            std::cout<< "Gregarious" << std::endl;
+            behavior = std::unique_ptr<Behavior>(new Gregarious());
         }
         else if (random==1){
-            behavior = std::shared_ptr<Behavior>(new Fearful());
+            std::cout<< "Fearful" << std::endl;
+            behavior = std::unique_ptr<Behavior>(new Fearful());
         }
         else if (random==2){
-            behavior = std::shared_ptr<Behavior>(new Kamikaze());
+            std::cout<< "Kamikaze" << std::endl;
+            behavior = std::unique_ptr<Behavior>(new Kamikaze());
         }
         else{
-            behavior = std::shared_ptr<Behavior>(new Farsighted());
+            std::cout<< "Farsighted" << std::endl;
+            behavior = std::unique_ptr<Behavior>(new Farsighted());
         }
     }
 }
