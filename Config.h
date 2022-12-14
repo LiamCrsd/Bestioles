@@ -60,8 +60,8 @@ class Config {
             fieldViewMax = M_PI/2;
             detectionRateMin = 0.3;
             detectionRateMax = 1;
-            detectionDistanceMin = 1000;
-            detectionDistanceMax = 10000;
+            detectionDistanceMin = 20;
+            detectionDistanceMax = 100;
             eyesRate = 0.5;
             earsRate = 0.5;
             speedFactorMax = 3;

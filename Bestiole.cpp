@@ -221,8 +221,8 @@ void Bestiole::resolveCollision() {
    direction = fmod(direction - M_PI, 2*M_PI);
 };
 void Bestiole::resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
-   currentSpeed = behavior->calcSpeed(x,y,currentSpeed,direction,detectedNeighbors);
-   direction = behavior->calcDirection(x,y,currentSpeed,direction,detectedNeighbors);
+   currentSpeed = behavior->calcSpeed(x,y,initialSpeed,direction,detectedNeighbors);
+   direction = behavior->calcDirection(x,y,initialSpeed,direction,detectedNeighbors);
    
 }; 
 bool Bestiole::doClone() { throw std::invalid_argument("Not implemented");};

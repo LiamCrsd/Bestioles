@@ -22,7 +22,7 @@ std::pair<double,double> Fearful::calcBarycenterVec(int x,int y,double currentSp
 
 
 double Fearful::calcDirection(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
-    std::cout<<"calcDirection of Fearful called"<<std::endl;
+    //std::cout<<"calcDirection of Fearful called"<<std::endl;
     if (detectedNeighbors.size()>=scaredThreshold){
         std::pair<double,double> barycenterVect = calcBarycenterVec(x,y,currentSpeed,currentDirection,detectedNeighbors);
         double barycenterDirection = fmod(std::atan2(barycenterVect.second,barycenterVect.first),2*M_PI);
@@ -35,7 +35,7 @@ double Fearful::calcDirection(int x,int y,double currentSpeed,double currentDire
 }
 
 double Fearful::calcSpeed(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
-    std::cout<<"calcSpeed of Fearful called"<<std::endl;
+    //std::cout<<"calcSpeed of Fearful called"<<std::endl;
     if (detectedNeighbors.size()>=scaredThreshold){
         return scaredSpeed*currentSpeed;
     }
