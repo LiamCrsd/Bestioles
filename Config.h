@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 #include <iostream>
-
+#include <cmath>
 class Config {
     private:
         Config(int width,int height,double minSize,double maxSize, double minSpeed, double maxSpeed,
@@ -40,14 +40,14 @@ class Config {
         }
 
         Config() {
-            width = 640;
-            height = 480;
+            width = 700;
+            height = 700;
             minSize = 3;
             maxSize = 15;
             minSpeed = 1;
             maxSpeed = 10;
-            ageMin = 100;
-            ageMax = 400;
+            ageMin = 2000;
+            ageMax = 10000;
             repartition[0] = 0.2; //gregariousRate
             repartition[1] = 0.2; //fearfulRate
             repartition[2] = 0.2; //kamikazeRate
@@ -55,7 +55,7 @@ class Config {
             repartition[4] = 0.2; //multiplePersonnalityRate
             birthRate = 0.01;
             deathRateMax = 0.5;
-            cloneRateMax = 0.01;
+            cloneRateMax = 0.001;
             fieldViewMin = M_PI/8;
             fieldViewMax = M_PI/2;
             detectionRateMin = 0.3;
@@ -72,9 +72,9 @@ class Config {
             slowFactorMax = 8;
             camouflageFactorMin = 0.6;
             camouflageFactorMax = 1,
-            scaredSpeedMax = 5;
+            scaredSpeedMax = 3.0;
             scaredThresholdMax = 5;
-            switchRateMax = 0.1;
+            switchRateMax = 0.01;
         }
 
     public:
@@ -92,7 +92,8 @@ class Config {
         double speedFactorMin, speedFactorMax, resistanceFactorMin, resistanceFactorMax;
         double slowFactorMin, slowFactorMax;
         double camouflageFactorMin, camouflageFactorMax;
-        double scaredSpeedMax, scaredThresholdMax;
+        double scaredSpeedMax;
+        int scaredThresholdMax;
         double switchRateMax;
 
         Config(Config &other) = delete;

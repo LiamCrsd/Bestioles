@@ -1,5 +1,11 @@
 #include "Bestiole.h"
 #include "Ecosystem.h"
+
+#include "Gregarious.h"
+#include "Fearful.h"
+#include "Kamikaze.h"
+#include "Farsighted.h"
+#include "MultiplePersonnality.h"
 #include <cstdlib>
 #include <cmath>
 
@@ -10,11 +16,12 @@ int               Bestiole::next = 0;
 
 
 
-Bestiole::Bestiole( void ) : Bestiole(0, 0, 0, 0, 0 ,0, 0, 0, std::vector<std::shared_ptr<Sensor>>(), std::vector<std::shared_ptr<Accessory>>()) {
+Bestiole::Bestiole( void ) : Bestiole(0, 0, 0, 0, 0 ,0, 0, 0, std::vector<std::shared_ptr<Sensor>>(), std::vector<std::shared_ptr<Accessory>>(), 0) {
 
    cout << "const Bestiole by default" << endl;
    direction = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
-   speed = static_cast<double>( rand() )/RAND_MAX*10.;
+   behaviorSpeedFactor = 1;
+   initialSpeed = static_cast<double>( rand() )/RAND_MAX*10.;
    size = 8.;
 
 }
@@ -29,12 +36,13 @@ Bestiole::Bestiole(
    double cloneRate,
    double deathRate,
    std::vector<std::shared_ptr<Sensor>> sensors,
-   std::vector<std::shared_ptr<Accessory>> accessories
+   std::vector<std::shared_ptr<Accessory>> accessories,
+   int behaviorIndex
    ) :
    x(startX), 
    y(startY), 
    direction(startDir),
-   speed(startSpeed),
+   initialSpeed(startSpeed),
    size(size),
    ageLim(ageLim),
    cloneRate(cloneRate),
@@ -50,13 +58,40 @@ Bestiole::Bestiole(
 
    age = 0;
    dead = false;
+   behaviorSpeedFactor = 1;
 
    cumulX = cumulY = 0.;
    couleur = new T[ 3 ];
-   couleur[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
-   couleur[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
-   couleur[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
-
+   if (behaviorIndex==0){
+        behavior = std::shared_ptr<Behavior>(new Gregarious());
+        couleur[0]=0;
+        couleur[1]=255;
+        couleur[2]=0;
+    }
+   else if (behaviorIndex==1){
+        behavior = shared_ptr<Behavior>(new Fearful());
+        couleur[0]=255;
+        couleur[1]=0;
+        couleur[2]=255;
+    }
+    else if (behaviorIndex==2){
+        behavior = shared_ptr<Behavior>(new Kamikaze());
+        couleur[0]=255;
+        couleur[1]=0;
+        couleur[2]=0;
+    }
+    else if (behaviorIndex==3){
+        behavior = shared_ptr<Behavior>(new Farsighted());
+        couleur[0]=0;
+        couleur[1]=0;
+        couleur[2]=255;
+    }
+    else{
+      behavior = shared_ptr<Behavior>(new MultiplePersonnality());
+      couleur[0]=0;
+      couleur[1]=0;
+      couleur[2]=0;
+    }
 }
 
 
@@ -71,7 +106,8 @@ Bestiole::Bestiole( const Bestiole & b )
    x = b.x;
    y = b.y;
    direction = b.direction;
-   speed = b.speed;
+   behaviorSpeedFactor = b.behaviorSpeedFactor;
+   initialSpeed = b.initialSpeed;
    size = b.size;
    ageLim = b.ageLim;
    cloneRate = b.cloneRate;
@@ -83,8 +119,12 @@ Bestiole::Bestiole( const Bestiole & b )
    cumulX = cumulY = 0.;
    couleur = new T[ 3 ];
    memcpy( couleur, b.couleur, 3*sizeof(T) );
+
+   //copying these shared pointers is fine, since we just need the exact same sensors, accessories and behaviors
+   //the only "problem" is that shared multipersonnality will have the same behavior switch
    sensors = b.sensors;
    accessories = b.accessories;
+   behavior = b.behavior;
 }
 
 
@@ -100,7 +140,7 @@ Bestiole::~Bestiole( void )
 
 void Bestiole::move( int xLim, int yLim )
 {
-   double         realSpeed = getCurrentSpeed();
+   double         realSpeed = getCurrentSpeed()*behaviorSpeedFactor;
    double         nx, ny;
    double         dx = cos( direction )*realSpeed;
    double         dy = -sin( direction )*realSpeed;
@@ -114,7 +154,7 @@ void Bestiole::move( int xLim, int yLim )
    ny = y + dy + cy;
 
    if ( (nx < 0) || (nx > xLim - 1) ) {
-      direction = M_PI - direction;
+      direction = fmod(M_PI - direction,2*M_PI);
       cumulX = 0.;
    }
    else {
@@ -123,14 +163,13 @@ void Bestiole::move( int xLim, int yLim )
    }
 
    if ( (ny < 0) || (ny > yLim - 1) ) {
-      direction = -direction;
+      direction = fmod(-direction,2*M_PI);
       cumulY = 0.;
    }
    else {
       y = static_cast<int>( ny );
       cumulY += ny - y;
    }
-
 }
 
 
@@ -181,20 +220,16 @@ void Bestiole::setDead(bool isDead) {
    dead = isDead;
 };
 
-bool Bestiole::atBorder() { throw std::invalid_argument("Not implemented");};
 void Bestiole::resolveCollision() {
-   //cout << "Bestiole " << id << " did collide without dying" << endl;
    direction = fmod(direction - M_PI, 2*M_PI);
 };
+
 void Bestiole::resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
-   if (detectedNeighbors.size() >= 1) {
-      //cout << "Bestiole " << id << " detected " << detectedNeighbors.size() << " other bestioles" << endl;
-   }
-}; //FRED FAIT TON TAF
-bool Bestiole::doClone() {
-   double rollClone = static_cast<double>(rand())/RAND_MAX;
-   return (rollClone <cloneRate); 
+   double realSpeed = getCurrentSpeed();
+   behaviorSpeedFactor = behavior->calcSpeed(x,y,realSpeed,direction,detectedNeighbors)/realSpeed;
+   direction = behavior->calcDirection(x,y,realSpeed*behaviorSpeedFactor,direction,detectedNeighbors);
 };
+
 
 void Bestiole::setX(int x) {
    this->x = x;
@@ -203,6 +238,11 @@ void Bestiole::setX(int x) {
 void Bestiole::setY(int y) {
    this->y = y;
 }
+
+bool Bestiole::doClone() {
+   double rollClone = static_cast<double>(rand())/RAND_MAX;
+   return (rollClone <cloneRate); 
+};
 
 void Bestiole::grow_old() {
   age += 1;
@@ -217,7 +257,7 @@ double Bestiole::getCurrentSpeed() const{
    for (std::vector<std::shared_ptr<Accessory>>::const_iterator it = accessories.begin(); it != accessories.end(); ++it ) {
       multiplier *= (**it).getSpeedFactor();
    }
-   return multiplier*speed;
+   return multiplier*initialSpeed;
 }
 
 double Bestiole::getDeathRate() const{
