@@ -3,6 +3,10 @@
 #include "Config.h"
 #include <memory>
 #include <stdexcept>
+#include "accessories/Accessory.h"
+#include "accessories/Shell.h"
+#include "accessories/Fins.h"
+#include "accessories/Camouflage.h"
 #include "sensors/Eyes.h"
 #include "sensors/Ears.h"
 #include "sensors/Sensor.h"
@@ -20,7 +24,30 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
     int ageLim = static_cast<double>( rand() )/RAND_MAX*(config.ageMax - config.ageMin) + config.ageMin;
     double deathRate = static_cast<double>( rand() )/RAND_MAX*config.deathRateMax;
     double cloneRate = static_cast<double>( rand() )/RAND_MAX*config.cloneRateMax;
+
+
+    std::vector<std::shared_ptr<Accessory>> accessories; 
+
+    if (static_cast<double>( rand() )/RAND_MAX < 1/3) {
+        std::shared_ptr<Shell> shellPtr (new Shell((static_cast<double>( rand() )/RAND_MAX)*(config.resistanceFactorMax- config.resistanceFactorMin) + config.resistanceFactorMin, (static_cast<double>( rand() )/RAND_MAX)*(config.slowFactorMax-config.slowFactorMin)+config.slowFactorMin));
+        accessories.push_back(shellPtr);
+        //cout << "Adding shell to bestiole with factor " << shellPtr->getResistanceFactor() << endl;
+        //cout << "Adding shell to bestiole with spd factor " << shellPtr->getSpeedFactor() << endl;
+    }
+    if (static_cast<double>( rand() )/RAND_MAX < 1/3) {
+        std::shared_ptr<Fins> finsPtr (new Fins((static_cast<double>( rand() )/RAND_MAX)*(config.speedFactorMax - config.speedFactorMin) + config.speedFactorMin));
+        accessories.push_back(finsPtr);
+        //cout << "Adding fins to bestiole with factor " << finsPtr->getSpeedFactor() << endl;
+    }
+    if (static_cast<double>( rand() )/RAND_MAX < 1/3) {
+        std::shared_ptr<Camouflage> camouflagePtr (new Camouflage((static_cast<double>( rand() )/RAND_MAX)*(config.camouflageFactorMax - config.camouflageFactorMin) + config.camouflageFactorMin));
+        accessories.push_back(camouflagePtr);
+        //cout << "Adding camo to bestiole with factor " << camouflagePtr->getCamouflageFactor() << endl;
+    }
+
+
     std::vector<std::shared_ptr<Sensor>> sensors;
+
     if (static_cast<double>( rand() )/RAND_MAX > 0.5) {
         std::shared_ptr<Ears> ears (new Ears(
             static_cast<double>( rand() )/RAND_MAX*(config.detectionDistanceMax - config.detectionDistanceMin) + config.detectionDistanceMin,
@@ -36,7 +63,7 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
         ));
         sensors.push_back(eyes);
     }
-    std::shared_ptr<IBestiole> bestiole (new Bestiole(xpos, ypos, direction, speed, size, ageLim, cloneRate, deathRate, sensors));
+    std::shared_ptr<IBestiole> bestiole (new Bestiole(xpos, ypos, direction, speed, size, ageLim, cloneRate, deathRate, sensors, accessories));
     return bestiole;
 }
 
@@ -51,6 +78,10 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(int type){
 }
 
 void BestioleFactory::setCoordinates(Bestiole& bestiole){
+
+   // Generate random coordinates for the cloned bestiole such that its distance with the original
+   // is between 4*size and 5*size
+
     int size = bestiole.getSize();
     int randXAbs = rand()/RAND_MAX * (5*size);
     int randXSign = ((rand() % 2) * 2) - 1;
