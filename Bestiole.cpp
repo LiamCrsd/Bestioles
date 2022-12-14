@@ -1,11 +1,11 @@
 #include "Bestiole.h"
 #include "Ecosystem.h"
 
-#include "Gregarious.h"
-#include "Fearful.h"
-#include "Kamikaze.h"
-#include "Farsighted.h"
-#include "MultiplePersonnality.h"
+#include "behaviors/Gregarious.h"
+#include "behaviors/Fearful.h"
+#include "behaviors/Kamikaze.h"
+#include "behaviors/Farsighted.h"
+#include "behaviors/MultiplePersonnality.h"
 #include <cstdlib>
 #include <cmath>
 

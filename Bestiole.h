@@ -4,7 +4,7 @@
 #include <vector>
 #include "IBestiole.h"
 #include "UImg.h"
-#include "Behavior.h"
+#include "behaviors/Behavior.h"
 #include <iostream>
 #include "accessories/Accessory.h"
 #include "sensors/Sensor.h"
