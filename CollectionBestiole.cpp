@@ -53,10 +53,12 @@ bool CollectionBestiole::getCollisions(std::shared_ptr<IBestiole> ptrBestiole) {
 				double rollDeath = static_cast<double>( rand() )/RAND_MAX;
 				isDead = isDead || (rollDeath < currDeathrate);
 
-				/*cout << ptrBestiole->getID() << " collided with " << (*it)->getID() <<endl;
-				cout << "deathRate : " << currDeathrate << endl;
-				cout << "rollDeath : " << rollDeath << endl;
-				cout << "isDead : " << isDead << endl;*/
+				/*if (isDead) {
+					cout << ptrBestiole->getID() << " collided with " << (*it)->getID() <<endl;
+					cout << "deathRate : " << currDeathrate << endl;
+					cout << "rollDeath : " << rollDeath << endl;
+					cout << "isDead : " << isDead << endl;
+				}*/
 			}
 		}
 	} // for
@@ -65,6 +67,7 @@ bool CollectionBestiole::getCollisions(std::shared_ptr<IBestiole> ptrBestiole) {
 	if (!isDead && doCollide) {
 		ptrBestiole->resolveCollision();
 	} else if (isDead) {
+		//cout << "Setting bestiole as dead" << endl;
 		ptrBestiole->setDead(isDead);
 	}
 

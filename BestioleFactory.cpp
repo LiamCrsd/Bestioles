@@ -31,6 +31,7 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
     if (static_cast<double>( rand() )/RAND_MAX < 1/3) {
         std::shared_ptr<Shell> shellPtr (new Shell((static_cast<double>( rand() )/RAND_MAX)*(config.resistanceFactorMax- config.resistanceFactorMin) + config.resistanceFactorMin, (static_cast<double>( rand() )/RAND_MAX)*(config.slowFactorMax-config.slowFactorMin)+config.slowFactorMin));
         accessories.push_back(shellPtr);
+        //cout << "Adding shell to bestiole with factor " << shellPtr->getResistanceFactor() << endl;
     }
     if (static_cast<double>( rand() )/RAND_MAX < 1/3) {
         std::shared_ptr<Fins> finsPtr (new Fins((static_cast<double>( rand() )/RAND_MAX)*(config.speedFactorMax - config.speedFactorMin) + config.speedFactorMin));

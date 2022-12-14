@@ -175,7 +175,7 @@ bool Bestiole::iSeeU( const IBestiole & b ) const
 
 bool Bestiole::isDead() const { return dead; };
 void Bestiole::setDead(bool isDead) {
-   cout << "Bestiole " << id << " is dead by collision" << endl;
+   cout << "Bestiole " << id << " is dead" << endl;
    dead = isDead;
 };
 
@@ -212,7 +212,7 @@ double Bestiole::getDeathRate() const{
    for (std::vector<std::shared_ptr<Accessory>>::const_iterator it = accessories.begin(); it != accessories.end(); ++it ) {
       multiplier *= (**it).getResistanceFactor();
    }
-   return multiplier*deathRate;
+   return deathRate/multiplier;
 }
 
 double Bestiole::getCamouflage() const{
