@@ -1,10 +1,10 @@
-main : main.cpp Aquarium.o Bestiole.o Ecosystem.o BestioleFactory.o CollectionBestiole.o Accessory.o Fins.o Shell.o Camouflage.o Sensor.o Ears.o Eyes.o
-	g++ -Wall -std=c++11 -o main main.cpp Aquarium.o Bestiole.o Ecosystem.o BestioleFactory.o CollectionBestiole.o Accessory.o Fins.o Shell.o Camouflage.o Sensor.o Ears.o Eyes.o -I . -lX11 -lpthread
+main : main.cpp Aquarium.o Bestiole.o Ecosystem.o BestioleFactory.o CollectionBestiole.o Accessory.o Fins.o Shell.o Camouflage.o Behavior.o Gregarious.o Fearful.o Kamikaze.o Farsighted.o MultiplePersonnality.o Sensor.o Ears.o Eyes.o
+	g++ -Wall -std=c++11 -o main main.cpp Aquarium.o Bestiole.o Ecosystem.o BestioleFactory.o CollectionBestiole.o Accessory.o Fins.o Shell.o Camouflage.o Behavior.o Gregarious.o Fearful.o Kamikaze.o Farsighted.o MultiplePersonnality.o Sensor.o Ears.o Eyes.o -I . -lX11 -lpthread
 
 Aquarium.o : Aquarium.h Aquarium.cpp
 	g++ -Wall -std=c++11  -c Aquarium.cpp -I .
 
-Bestiole.o : Bestiole.h Bestiole.cpp IBestiole.h
+Bestiole.o : Bestiole.h Bestiole.cpp IBestiole.h Behavior.h Gregarious.h Fearful.h Kamikaze.h Farsighted.h MultiplePersonnality.h
 	g++ -Wall -std=c++11  -c Bestiole.cpp -I .
 
 Ecosystem.o : Ecosystem.h Ecosystem.cpp
@@ -15,6 +15,19 @@ BestioleFactory.o : BestioleFactory.h BestioleFactory.cpp
 
 CollectionBestiole.o : CollectionBestiole.h CollectionBestiole.cpp
 	g++ -Wall -std=c++11  -c CollectionBestiole.cpp -I .
+
+Behavior.o : Behavior.h Behavior.cpp IBestiole.h
+	g++ -Wall -std=c++11 -c Behavior.cpp -I .
+Gregarious.o : Gregarious.h Gregarious.cpp Behavior.h IBestiole.h
+	g++ -Wall -std=c++11 -c Gregarious.cpp -I .
+Fearful.o : Fearful.h Fearful.cpp Config.h Behavior.h IBestiole.h
+	g++ -Wall -std=c++11 -c Fearful.cpp -I .
+Farsighted.o : Farsighted.h Farsighted.cpp Config.h Behavior.h IBestiole.h
+	g++ -Wall -std=c++11 -c Farsighted.cpp -I .
+Kamikaze.o : Kamikaze.h Kamikaze.cpp Behavior.h IBestiole.h
+	g++ -Wall -std=c++11 -c Kamikaze.cpp -I .
+MultiplePersonnality.o : MultiplePersonnality.h MultiplePersonnality.cpp Behavior.h IBestiole.h Gregarious.h Fearful.h Kamikaze.h Farsighted.h Config.h
+	g++ -Wall -std=c++11 -c MultiplePersonnality.cpp -I .
 
 Accessory.o : accessories/Accessory.h accessories/Accessory.cpp
 	g++ -Wall -std=c++11 -c accessories/Accessory.cpp -I .
