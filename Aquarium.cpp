@@ -66,4 +66,6 @@ void Aquarium::run( void )
 
    } // while
 
+   extActionner.getReport();
+
 }

@@ -1,6 +1,7 @@
 #include "ExternalActionner.h"
 #include "Aquarium.h"
 #include "BestioleFactory.h"
+#include "Stats.h"
 
 
 ExternalActionner::ExternalActionner(){
@@ -26,6 +27,7 @@ void ExternalActionner::createBestiole(){
 void ExternalActionner::redirectKey(int key) {
     if (key == 97) this->createBestiole();
     if (key == 98) this->killBestiole();
+    if (key == 99) this->getReport();
 }
 
 void ExternalActionner::killBestiole(){
@@ -34,4 +36,13 @@ void ExternalActionner::killBestiole(){
         auto ptr_bestiole = collectionBestiole->getBestiolesList()[index];
         ptr_bestiole->setDead(true);
     }
+}
+
+void ExternalActionner::getReport(){
+    Stats& stats = Stats::GetInstance();
+
+    std::cout << "Nombre de bestioles en vie : " << collectionBestiole->getBestiolesList().size() << std::endl;
+    std::cout << "Nombre de bestioles créées : " << stats.nbCreated << std::endl;
+    std::cout << "Nombre de bestioles mortes : " << stats.nbDeaths << std::endl;
+    std::cout << "Nombre de collisions : " << stats.nbCollisions << std::endl;
 }

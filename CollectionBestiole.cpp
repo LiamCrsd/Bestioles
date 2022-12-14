@@ -1,5 +1,6 @@
 #include "CollectionBestiole.h"
 #include "IBestiole.h"
+#include "Stats.h"
 
 #include <cstdlib>
 #include <iostream>
@@ -19,6 +20,7 @@ void CollectionBestiole::addBestiole(std::shared_ptr<IBestiole> ptrBestiole) {
 }
 
 void CollectionBestiole::delBestiole(std::shared_ptr<IBestiole> ptrBestiole) {
+	Stats& stats = Stats::GetInstance();
 	std::vector<std::shared_ptr<IBestiole>>::iterator it = bestioles.begin();
 
 	while (it != bestioles.end() && *it != ptrBestiole) {
@@ -27,10 +29,14 @@ void CollectionBestiole::delBestiole(std::shared_ptr<IBestiole> ptrBestiole) {
 
 	if (it != bestioles.end()) {
 		bestioles.erase(it);
+		stats.nbDeaths++;
 	}
 }
 
 bool CollectionBestiole::getCollisions(std::shared_ptr<IBestiole> ptrBestiole) {
+
+	Stats& stats = Stats::GetInstance();
+
 	bool isDead = false;
 	bool doCollide = false;
 	double currDeathrate = ptrBestiole->getDeathRate();
@@ -50,6 +56,7 @@ bool CollectionBestiole::getCollisions(std::shared_ptr<IBestiole> ptrBestiole) {
 
 			if (distance <= 0) {
 				doCollide = true;
+				stats.nbCollisions++;
 				double rollDeath = static_cast<double>( rand() )/RAND_MAX;
 				isDead = isDead || (rollDeath < currDeathrate);
 
@@ -106,7 +113,11 @@ std::vector<std::shared_ptr<IBestiole>> CollectionBestiole::getDetections(std::s
 }
 
 void CollectionBestiole::processDead() {
+	Stats& stats = Stats::GetInstance();
+
+	int size_init = bestioles.size();
 	bestioles.erase(remove_if(bestioles.begin(),bestioles.end(), [] (std::shared_ptr<IBestiole> b) -> bool {return b -> isDead();} ),bestioles.end());
+	stats.nbDeaths += size_init - bestioles.size();
 }
 
 void CollectionBestiole::processOld() {

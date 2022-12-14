@@ -10,11 +10,15 @@
 #include "sensors/Eyes.h"
 #include "sensors/Ears.h"
 #include "sensors/Sensor.h"
+#include "Stats.h"
 
 
 std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
 
     Config& config = Config::GetInstance();
+    Stats& stats = Stats::GetInstance();
+
+    stats.nbCreated++;
 
     int xpos = static_cast<double>( rand() )/RAND_MAX*config.width;
     int ypos = static_cast<double>( rand() )/RAND_MAX*config.height;
@@ -68,6 +72,9 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
 }
 
 std::shared_ptr<IBestiole> BestioleFactory::createBestiole(const Bestiole& bestiole){
+    Stats& stats = Stats::GetInstance();
+    stats.nbCreated++;
+    
     std::shared_ptr<IBestiole> bestiole_ptr (new Bestiole(bestiole));
     return bestiole_ptr;
 }
