@@ -6,6 +6,7 @@
 #include "UImg.h"
 #include "Behavior.h"
 #include <iostream>
+#include "accessories/Accessory.h"
 #include "sensors/Sensor.h"
 
 
@@ -32,24 +33,29 @@ private :
    double            cloneRate;
    double            deathRate;
    std::vector<std::shared_ptr<Sensor>> sensors;
-   int                   age;
-   bool                  dead;
+   std::vector<std::shared_ptr<Accessory>> accessories;
+   int               age;
+   bool              dead;
 
-   double                cumulX, cumulY;
-   T                   * couleur;
+   double            cumulX, cumulY;
+   T*                couleur;
+
    std::shared_ptr<Behavior> behavior;
+
 public :                                           // Forme canonique :
    Bestiole( void );                               // Constructeur par defaut
-   Bestiole(                                       // Constructor of factory
-      int x, int y, 
-      double direction, 
-      double speed, 
-      double size, 
-      int ageLim, 
-      double cloneRate, 
+   Bestiole(   
+      int startX,
+      int startY,                                    // Constructor of factory      int x, int y,
+      double direction,
+      double speed,
+      double size,
+      int ageLim,
+      double cloneRate,
       double deathRate,
-      int behaviorIndex,
-      std::vector<std::shared_ptr<Sensor>> sensors
+      std::vector<std::shared_ptr<Sensor>> sensors,
+      std::vector<std::shared_ptr<Accessory>> accessories,
+      int behaviorIndex
    );
    Bestiole( const Bestiole & b );                 // Constructeur de copies
    ~Bestiole( void );                              // Destructeur
@@ -61,7 +67,7 @@ public :                                           // Forme canonique :
 	void resolveCollision();
 	void resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors);
 	bool doClone();
-   void move( int xLim, int yLim );
+   void move( int xLim, int yLim ); 
    void draw( UImg & support );
 
    bool iSeeU( const IBestiole & b ) const;
@@ -75,6 +81,8 @@ public :                                           // Forme canonique :
 	double getSize() const;
 	double getDeathRate() const;
    void grow_old();
+   double getCurrentSpeed() const;
+   double getCamouflage() const;
 };
 
 #endif

@@ -15,7 +15,8 @@ const double      Bestiole::LIMITE_VUE = 30.;
 int               Bestiole::next = 0;
 
 
-Bestiole::Bestiole( void ) : Bestiole(0, 0, 0, 0, 0 ,0, 0, 0,rand()%5,std::vector<std::shared_ptr<Sensor>>()) {
+
+Bestiole::Bestiole( void ) : Bestiole(0, 0, 0, 0, 0 ,0, 0, 0, std::vector<std::shared_ptr<Sensor>>(), std::vector<std::shared_ptr<Accessory>>(), 0) {
 
    cout << "const Bestiole by default" << endl;
    direction = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
@@ -34,9 +35,10 @@ Bestiole::Bestiole(
    int ageLim,
    double cloneRate,
    double deathRate,
-   int behaviorIndex,
-   std::vector<std::shared_ptr<Sensor>> sensors
-   ) : 
+   std::vector<std::shared_ptr<Sensor>> sensors,
+   std::vector<std::shared_ptr<Accessory>> accessories,
+   int behaviorIndex
+   ) :
    x(startX), 
    y(startY), 
    direction(startDir),
@@ -46,7 +48,9 @@ Bestiole::Bestiole(
    ageLim(ageLim),
    cloneRate(cloneRate),
    deathRate(deathRate),
-   sensors(sensors)
+   sensors(sensors),
+   accessories(accessories)
+   
 {
 
    id = ++next;
@@ -130,10 +134,10 @@ Bestiole::~Bestiole( void )
 
 void Bestiole::move( int xLim, int yLim )
 {
-
+   double         realSpeed = getCurrentSpeed();
    double         nx, ny;
-   double         dx = cos( direction )*currentSpeed;
-   double         dy = -sin( direction )*currentSpeed;
+   double         dx = cos( direction )*realSpeed;
+   double         dy = -sin( direction )*realSpeed;
    int            cx, cy;
 
 
@@ -160,7 +164,6 @@ void Bestiole::move( int xLim, int yLim )
       y = static_cast<int>( ny );
       cumulY += ny - y;
    }
-   currentSpeed = initialSpeed;
 }
 
 
@@ -196,23 +199,18 @@ double Bestiole::getSize() const {
    return size;
 }
 
-double Bestiole::getDeathRate() const {
-   return deathRate;
-}
-
-
 bool Bestiole::iSeeU( const IBestiole & b ) const
 {
    for (std::vector<std::shared_ptr<Sensor>>::const_iterator it = sensors.begin() ; it != sensors.end() ; ++it) {
       if ((*it)->isDetected(Bestiole::x, Bestiole::y, Bestiole::direction,
-                            b.getX(), b.getY(), 0)) {return true;} //TODO : put real camoo value instead of the "0"
+                            b.getX(), b.getY(), b.getCamouflage())) {return true;} 
    }
    return false;
 }
 
 bool Bestiole::isDead() const { return dead; };
 void Bestiole::setDead(bool isDead) {
-   cout << "Bestiole " << id << " is dead by collision" << endl;
+   cout << "Bestiole " << id << " is dead" << endl;
    dead = isDead;
 };
 
@@ -233,4 +231,28 @@ void Bestiole::grow_old() {
     //cout << "Bestiole " << id << " is dead by old" << endl;
     dead = true;
   }
+}
+
+double Bestiole::getCurrentSpeed() const{
+   double multiplier = 1;
+   for (std::vector<std::shared_ptr<Accessory>>::const_iterator it = accessories.begin(); it != accessories.end(); ++it ) {
+      multiplier *= (**it).getSpeedFactor();
+   }
+   return multiplier*currentSpeed;
+}
+
+double Bestiole::getDeathRate() const{
+   double multiplier = 1;
+   for (std::vector<std::shared_ptr<Accessory>>::const_iterator it = accessories.begin(); it != accessories.end(); ++it ) {
+      multiplier *= (**it).getResistanceFactor();
+   }
+   return deathRate/multiplier;
+}
+
+double Bestiole::getCamouflage() const{
+   double value = 0;
+   for (std::vector<std::shared_ptr<Accessory>>::const_iterator it = accessories.begin(); it != accessories.end(); ++it ) {
+      value += (**it).getCamouflageFactor();
+   }
+   return value;
 }

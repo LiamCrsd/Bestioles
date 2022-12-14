@@ -29,6 +29,9 @@ public:
 	virtual double getDeathRate() const = 0;
 	virtual bool iSeeU( const IBestiole & b ) const = 0;
 	virtual void grow_old()=0;
+	virtual double getCurrentSpeed() const = 0;
+    virtual double getCamouflage() const = 0;
+
 };
 
 #endif

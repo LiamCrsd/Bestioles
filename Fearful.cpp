@@ -36,7 +36,12 @@ double Fearful::calcDirection(int x,int y,double currentSpeed,double currentDire
 
 double Fearful::calcSpeed(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
     //std::cout<<"calcSpeed of Fearful called"<<std::endl;
-    if (detectedNeighbors.size()>=scaredThreshold){
+    if (detectedNeighbors.size()>=scaredThreshold || currentScaredMemory > 0){
+        if (detectedNeighbors.size()>=scaredThreshold) {
+            currentScaredMemory = SCARED_MEMORY;
+        } else {
+            currentScaredMemory -= 1;
+        }
         return scaredSpeed*currentSpeed;
     }
     else{

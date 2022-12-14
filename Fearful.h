@@ -8,6 +8,8 @@
 #include <algorithm>
 class Fearful:public Behavior{
     private:
+        static const int SCARED_MEMORY = 7;
+        int currentScaredMemory;
         double scaredSpeed;
         long unsigned int scaredThreshold;
     public:
