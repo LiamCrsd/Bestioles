@@ -26,7 +26,7 @@ private :
    int               id;
    int               x, y;
    double            direction;
-   double            currentSpeed;
+   double            behaviorSpeedFactor;
    double            initialSpeed;
    double            size;
    int               ageLim;
@@ -72,7 +72,6 @@ public :                                           // Forme canonique :
 
    bool iSeeU( const IBestiole & b ) const;
    int getID() const;
-   double getSpeed(){return currentSpeed;};
    double getDirection(){return direction;};
    std::pair<int,int> getPos(){return std::pair<int,int> (x,y);};
    int getX() const;

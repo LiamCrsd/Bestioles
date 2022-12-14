@@ -20,8 +20,8 @@ Bestiole::Bestiole( void ) : Bestiole(0, 0, 0, 0, 0 ,0, 0, 0, std::vector<std::s
 
    cout << "const Bestiole by default" << endl;
    direction = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
-   currentSpeed = static_cast<double>( rand() )/RAND_MAX*10.;
-   initialSpeed = currentSpeed;
+   behaviorSpeedFactor = 1;
+   initialSpeed = static_cast<double>( rand() )/RAND_MAX*10.;
    size = 8.;
 
 }
@@ -42,7 +42,6 @@ Bestiole::Bestiole(
    x(startX), 
    y(startY), 
    direction(startDir),
-   currentSpeed(startSpeed),
    initialSpeed(startSpeed),
    size(size),
    ageLim(ageLim),
@@ -59,6 +58,7 @@ Bestiole::Bestiole(
 
    age = 0;
    dead = false;
+   behaviorSpeedFactor = 1;
 
    cumulX = cumulY = 0.;
    couleur = new T[ 3 ];
@@ -105,7 +105,7 @@ Bestiole::Bestiole( const Bestiole & b )
    x = b.x;
    y = b.y;
    direction = b.direction;
-   currentSpeed = b.currentSpeed;
+   behaviorSpeedFactor = b.behaviorSpeedFactor;
    initialSpeed = b.initialSpeed;
    size = b.size;
    ageLim = b.ageLim;
@@ -134,7 +134,7 @@ Bestiole::~Bestiole( void )
 
 void Bestiole::move( int xLim, int yLim )
 {
-   double         realSpeed = getCurrentSpeed();
+   double         realSpeed = getCurrentSpeed()*behaviorSpeedFactor;
    double         nx, ny;
    double         dx = cos( direction )*realSpeed;
    double         dy = -sin( direction )*realSpeed;
@@ -219,8 +219,9 @@ void Bestiole::resolveCollision() {
    direction = fmod(direction - M_PI, 2*M_PI);
 };
 void Bestiole::resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
-   currentSpeed = behavior->calcSpeed(x,y,initialSpeed,direction,detectedNeighbors);
-   direction = behavior->calcDirection(x,y,initialSpeed,direction,detectedNeighbors);
+   double realSpeed = getCurrentSpeed();
+   behaviorSpeedFactor = behavior->calcSpeed(x,y,realSpeed,direction,detectedNeighbors)/realSpeed;
+   direction = behavior->calcDirection(x,y,realSpeed*behaviorSpeedFactor,direction,detectedNeighbors);
    
 }; 
 bool Bestiole::doClone() { throw std::invalid_argument("Not implemented");};
@@ -238,7 +239,7 @@ double Bestiole::getCurrentSpeed() const{
    for (std::vector<std::shared_ptr<Accessory>>::const_iterator it = accessories.begin(); it != accessories.end(); ++it ) {
       multiplier *= (**it).getSpeedFactor();
    }
-   return multiplier*currentSpeed;
+   return multiplier*initialSpeed;
 }
 
 double Bestiole::getDeathRate() const{

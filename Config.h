@@ -58,10 +58,10 @@ class Config {
             cloneRateMax = 0.01;
             fieldViewMin = M_PI/8;
             fieldViewMax = M_PI/2;
-            detectionRateMin = 0.3;
+            detectionRateMin = 1;//0.3;
             detectionRateMax = 1;
-            detectionDistanceMin = 20;
-            detectionDistanceMax = 100;
+            detectionDistanceMin = 20000;
+            detectionDistanceMax = 100000;
             eyesRate = 0.5;
             earsRate = 0.5;
             speedFactorMin = 1.2;

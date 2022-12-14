@@ -2,7 +2,7 @@
 #include <cmath>
 #include <limits>
 double Kamikaze::calcDirection(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
-    std::cout<<"calcDirection of Behavior called"<<std::endl;
+    //std::cout<<"calcDirection of Kamikaze called"<<std::endl;
     double minDistance = std::numeric_limits<double>::max() ;
     std::shared_ptr<IBestiole> closestBestiole;
     std::pair<int,int> pos;

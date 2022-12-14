@@ -1,23 +1,22 @@
 #include "Gregarious.h"
 #include <cmath>
 
-std::pair<double,double> Gregarious::calcMeanVec(double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
-    double r, theta;
+std::pair<double,double> Gregarious::calcMeanVec(double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
+    double theta;
     double xm = 0.0;
     double ym = 0.0;
     for (auto & bestiole : detectedNeighbors){
-        r = bestiole->getSpeed();
         theta = bestiole->getDirection();
-        xm += r*std::cos(theta);
-        ym += r*std::sin(theta);
+        xm += std::cos(theta);
+        ym += std::sin(theta);
     }
     if (detectedNeighbors.size()>0){
         xm /= detectedNeighbors.size();
         ym /= detectedNeighbors.size();
     }
     else{
-        xm = currentSpeed*std::cos(currentDirection);
-        ym = currentSpeed*std::sin(currentDirection);
+        xm = std::cos(currentDirection);
+        ym = std::sin(currentDirection);
     }
     std::pair<double,double> cartesianVect(xm,ym);
     return cartesianVect;
@@ -25,7 +24,7 @@ std::pair<double,double> Gregarious::calcMeanVec(double currentSpeed,double curr
 
 double Gregarious::calcDirection(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
     //std::cout<<"calcDirection of Gregarious called"<<std::endl;
-    std::pair<double,double> cartesianVect = calcMeanVec(currentSpeed,currentDirection,detectedNeighbors);
+    std::pair<double,double> cartesianVect = calcMeanVec(currentDirection,detectedNeighbors);
     return fmod(std::atan2(cartesianVect.second,cartesianVect.first),2*M_PI);
 } 
 

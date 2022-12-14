@@ -19,7 +19,6 @@ public:
    	virtual void move( int xLim, int yLim )=0;
    	virtual void draw( UImg & support )=0;
 	virtual int getID() const = 0;
-	virtual double getSpeed() = 0;
 	virtual double getDirection() = 0;
 	virtual std::pair<int,int> getPos() = 0;
 	virtual int getX() const = 0;
