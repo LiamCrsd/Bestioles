@@ -8,14 +8,15 @@
 #include <random>
 MultiplePersonnality::MultiplePersonnality(){
     std::cout<<"Multiple personnality has been created"<<std::endl;
-    behavior = std::unique_ptr<Behavior>(new Behavior());
+    behavior = nullptr;
     switchRate = static_cast<double>(rand())/RAND_MAX*Config::GetInstance().switchRateMax;
+    switchBehavior(1); //force switch to get 1st random behavior
 }
 
-void MultiplePersonnality::switchBehavior(){
+void MultiplePersonnality::switchBehavior(double rate){
     std::random_device rd;
     std::mt19937 gen(rd());
-    if (std::bernoulli_distribution(switchRate)(gen)){
+    if (std::bernoulli_distribution(rate)(gen)){
         std::cout<<"Switch personnality for " << this << std::endl;
         int random = rand()%4;
         if (random==0){
@@ -38,7 +39,7 @@ void MultiplePersonnality::switchBehavior(){
 }
 
 double MultiplePersonnality::calcSpeed(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
-    switchBehavior();
+    switchBehavior(switchRate);
     return behavior->calcSpeed(x,y,currentSpeed,currentDirection,detectedNeighbors);
 }
 

@@ -4,6 +4,10 @@ Behavior::Behavior() {
     //std::cout<<"Behavior has been created"<<std::endl;
 }
 
+Behavior::~Behavior() {
+    //std::cout<<"Behavior has been destroyed"<<std::endl;
+}
+
 double Behavior::calcSpeed(int x,int y,double currentSpeed,double currentDirection, std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
     //std::cout<<"calcSpeed of Behavior called"<<std::endl;
     return currentSpeed;
