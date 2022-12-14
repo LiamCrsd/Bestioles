@@ -67,8 +67,6 @@ Bestiole::Bestiole( const Bestiole & b )
 
    cout << "const Bestiole (" << id << ") par copie" << endl;
 
-   // Generate random coordinates for the cloned bestiole such that its distance with the original
-   // is between 4*size and 5*size
 
    x = b.x;
    y = b.y;
@@ -86,6 +84,7 @@ Bestiole::Bestiole( const Bestiole & b )
    couleur = new T[ 3 ];
    memcpy( couleur, b.couleur, 3*sizeof(T) );
    sensors = b.sensors;
+   accessories = b.accessories;
 }
 
 
