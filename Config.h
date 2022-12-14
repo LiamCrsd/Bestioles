@@ -9,16 +9,16 @@ class Config {
             double farsightedRate, double multiplePersonnalityRate, double birthRate, double deathRateMax,
             double cloneRateMax,double fieldViewMin, double fieldViewMax, double detectionRateMin,
             double detectionRateMax,double detectionDistanceMin, double detectionDistanceMax,
-            double eyesRate, double earsRate, double speedFactorMax, double resistanceFactorMax,
-            double slowFactorMax, double camouflageFactorMin, double camouflageFactorMax,
+            double eyesRate, double earsRate,double speedFactorMin, double speedFactorMax, double resistanceFactorMin, double resistanceFactorMax,
+            double slowFactorMin, double slowFactorMax, double camouflageFactorMin, double camouflageFactorMax,
             double scaredSpeedMax, double scaredThresholdMax, double switchRateMax) :
                 width(width),height(height),minSize(minSize),maxSize(maxSize), minSpeed(minSpeed),
                 maxSpeed(maxSpeed),ageMin(ageMin),ageMax(ageMax),
                 birthRate(birthRate),deathRateMax(deathRateMax),cloneRateMax(cloneRateMax),
                 fieldViewMin(fieldViewMin),fieldViewMax(fieldViewMax),detectionRateMin(detectionRateMin),
                 detectionRateMax(detectionRateMax),detectionDistanceMin(detectionDistanceMin),
-                detectionDistanceMax(detectionDistanceMax),eyesRate(eyesRate),earsRate(earsRate),
-                speedFactorMax(speedFactorMax),resistanceFactorMax(resistanceFactorMax),
+                detectionDistanceMax(detectionDistanceMax),eyesRate(eyesRate),earsRate(earsRate),speedFactorMin(speedFactorMin),
+                speedFactorMax(speedFactorMax),resistanceFactorMin(resistanceFactorMin),resistanceFactorMax(resistanceFactorMax),slowFactorMin(slowFactorMin),
                 slowFactorMax(slowFactorMax),camouflageFactorMin(camouflageFactorMin),
                 camouflageFactorMax(camouflageFactorMax),scaredSpeedMax(scaredSpeedMax),
                 scaredThresholdMax(scaredThresholdMax),switchRateMax(switchRateMax){
@@ -64,9 +64,12 @@ class Config {
             detectionDistanceMax = 100;
             eyesRate = 0.5;
             earsRate = 0.5;
-            speedFactorMax = 3;
+            speedFactorMin = 1.2;
+            speedFactorMax = 2;
+            resistanceFactorMin = 1.5;
             resistanceFactorMax = 3;
-            slowFactorMax = 2;
+            slowFactorMin = 3;
+            slowFactorMax = 8;
             camouflageFactorMin = 0.6;
             camouflageFactorMax = 1,
             scaredSpeedMax = 5;
@@ -86,7 +89,8 @@ class Config {
         double detectionRateMin, detectionRateMax;
         double detectionDistanceMin, detectionDistanceMax;
         double eyesRate,earsRate;
-        double speedFactorMax, resistanceFactorMax, slowFactorMax;
+        double speedFactorMin, speedFactorMax, resistanceFactorMin, resistanceFactorMax;
+        double slowFactorMin, slowFactorMax;
         double camouflageFactorMin, camouflageFactorMax;
         double scaredSpeedMax, scaredThresholdMax;
         double switchRateMax;
