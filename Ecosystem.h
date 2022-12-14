@@ -35,7 +35,7 @@ public :
    void step( void );
 
    void birthBestiole();
-   int nbVoisins( const Bestiole & b );
+   void cloneBestiole(std::shared_ptr<IBestiole> bestiole);
 
 };
 

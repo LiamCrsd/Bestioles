@@ -1,11 +1,11 @@
 #include "Bestiole.h"
 #include "Ecosystem.h"
 
-#include "Gregarious.h"
-#include "Fearful.h"
-#include "Kamikaze.h"
-#include "Farsighted.h"
-#include "MultiplePersonnality.h"
+#include "behaviors/Gregarious.h"
+#include "behaviors/Fearful.h"
+#include "behaviors/Kamikaze.h"
+#include "behaviors/Farsighted.h"
+#include "behaviors/MultiplePersonnality.h"
 #include <cstdlib>
 #include <cmath>
 
@@ -102,6 +102,7 @@ Bestiole::Bestiole( const Bestiole & b )
 
    cout << "const Bestiole (" << id << ") par copie" << endl;
 
+
    x = b.x;
    y = b.y;
    direction = b.direction;
@@ -118,7 +119,12 @@ Bestiole::Bestiole( const Bestiole & b )
    cumulX = cumulY = 0.;
    couleur = new T[ 3 ];
    memcpy( couleur, b.couleur, 3*sizeof(T) );
+
+   //copying these shared pointers is fine, since we just need the exact same sensors, accessories and behaviors
+   //the only "problem" is that shared multipersonnality will have the same behavior switch
    sensors = b.sensors;
+   accessories = b.accessories;
+   behavior = b.behavior;
 }
 
 
@@ -214,17 +220,29 @@ void Bestiole::setDead(bool isDead) {
    dead = isDead;
 };
 
-bool Bestiole::atBorder() { throw std::invalid_argument("Not implemented");};
 void Bestiole::resolveCollision() {
    direction = fmod(direction - M_PI, 2*M_PI);
 };
+
 void Bestiole::resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
    double realSpeed = getCurrentSpeed();
    behaviorSpeedFactor = behavior->calcSpeed(x,y,realSpeed,direction,detectedNeighbors)/realSpeed;
    direction = behavior->calcDirection(x,y,realSpeed*behaviorSpeedFactor,direction,detectedNeighbors);
-   
-}; 
-bool Bestiole::doClone() { throw std::invalid_argument("Not implemented");};
+};
+
+
+void Bestiole::setX(int x) {
+   this->x = x;
+}
+
+void Bestiole::setY(int y) {
+   this->y = y;
+}
+
+bool Bestiole::doClone() {
+   double rollClone = static_cast<double>(rand())/RAND_MAX;
+   return (rollClone <cloneRate); 
+};
 
 void Bestiole::grow_old() {
   age += 1;

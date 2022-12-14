@@ -68,8 +68,9 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
     return bestiole;
 }
 
-std::shared_ptr<IBestiole> BestioleFactory::createBestiole(const Bestiole& bestiole){
-    std::shared_ptr<IBestiole> bestiole_ptr (new Bestiole(bestiole));
+std::shared_ptr<IBestiole> BestioleFactory::createBestiole(std::shared_ptr<IBestiole> bestiole){
+    std::shared_ptr<IBestiole> bestiole_ptr (new Bestiole(dynamic_cast<Bestiole&>(*bestiole)));
+    this->setCoordinates(static_cast<Bestiole&>(*bestiole_ptr));
     return bestiole_ptr;
 }
 
@@ -77,5 +78,27 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(int type){
     throw std::invalid_argument("Not implemented");
 }
 
+void BestioleFactory::setCoordinates(Bestiole& bestiole){
 
+   // Generate random coordinates for the cloned bestiole such that its distance with the original
+   // is between 4*size and 5*size
+
+    int size = bestiole.getSize();
+    int randXAbs = rand()/RAND_MAX * (5*size);
+    int randXSign = ((rand() % 2) * 2) - 1;
+    int randX = randXSign * randXAbs;
+
+    int yMax = 5*size*sin(acos(randX/(5*size)));
+    int yMin = 0;
+    if (randX < 4*size) {
+        yMin = (4*size*sin(acos(randX/(4*size))));
+    }
+
+    int randYAbs = rand()/RAND_MAX*(yMax-yMin) + yMin;
+    int randYSign = ((rand() % 2) * 2) - 1;
+    int randY = randYSign * randYAbs;
+
+    bestiole.setX(bestiole.getX() + randX);
+    bestiole.setY(bestiole.getY() + randY);
+}
     

@@ -12,7 +12,6 @@ public:
 
 	virtual bool isDead() const =0;
 	virtual void setDead(bool isDead)=0;
-	virtual bool atBorder()=0;
 	virtual void resolveCollision()=0;
 	virtual void resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors)=0;
 	virtual bool doClone()=0;

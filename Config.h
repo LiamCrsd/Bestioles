@@ -55,7 +55,7 @@ class Config {
             repartition[4] = 0.2; //multiplePersonnalityRate
             birthRate = 0.01;
             deathRateMax = 0.5;
-            cloneRateMax = 0.01;
+            cloneRateMax = 0.001;
             fieldViewMin = M_PI/8;
             fieldViewMax = M_PI/2;
             detectionRateMin = 0.3;

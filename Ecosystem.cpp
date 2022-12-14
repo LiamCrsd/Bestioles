@@ -30,14 +30,20 @@ Ecosystem::~Ecosystem( void )
 }
 
 void Ecosystem::birthBestiole() {
-   std::shared_ptr<IBestiole> newbestiole = bestioleFactory.createBestiole();
-   collectionBestiole.addBestiole(newbestiole);
+   std::shared_ptr<IBestiole> newBestiole = bestioleFactory.createBestiole();
+   collectionBestiole.addBestiole(newBestiole);
+}
+
+void Ecosystem::cloneBestiole(std::shared_ptr<IBestiole> bestiole) {
+   std::shared_ptr<IBestiole> clonedBestiole = bestioleFactory.createBestiole(bestiole);
+   collectionBestiole.addBestiole(clonedBestiole);
 }
 
 
 void Ecosystem::step( void )
 {
    Config& config = Config::GetInstance();
+   std::vector<std::shared_ptr<IBestiole>> listeBestioles = collectionBestiole.getBestiolesList();
 
    double birthRoll = static_cast<double>( std::rand() )/RAND_MAX;
    if (birthRoll < config.birthRate) {
@@ -50,10 +56,17 @@ void Ecosystem::step( void )
    collectionBestiole.processOld();
 
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
-   std::vector<std::shared_ptr<IBestiole>> listeBestioles = collectionBestiole.getBestiolesList();
    for ( std::vector<std::shared_ptr<IBestiole>>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
    {
+      if ( (*it)->doClone() ) {
+         cloneBestiole(*it);
+      }
+   }
 
+
+   cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
+   for ( std::vector<std::shared_ptr<IBestiole>>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
+   {
       (*it)->move( this->getWidth(), this->getHeight() );
       (*it)->draw( *this );
 
@@ -61,20 +74,5 @@ void Ecosystem::step( void )
 
    //Gestion des morts
    collectionBestiole.processDead();
-
-}
-
-
-int Ecosystem::nbVoisins( const Bestiole & b )
-{
-
-   int         nb = 0;
-
-   /*std::vector<std::shared_ptr<IBestiole>> listeBestioles = collectionBestiole.getBestiolesList();
-   for ( std::vector<std::shared_ptr<IBestiole>>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
-      if ( !(b == **it) && b.jeTeVois(**it) )
-         ++nb;
-   */
-   return nb;
 
 }

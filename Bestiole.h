@@ -4,7 +4,7 @@
 #include <vector>
 #include "IBestiole.h"
 #include "UImg.h"
-#include "Behavior.h"
+#include "behaviors/Behavior.h"
 #include <iostream>
 #include "accessories/Accessory.h"
 #include "sensors/Sensor.h"
@@ -63,7 +63,6 @@ public :                                           // Forme canonique :
    bool isDead() const;
    void setDead(bool isDead);
 
-	bool atBorder();
 	void resolveCollision();
 	void resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors);
 	bool doClone();
@@ -79,7 +78,12 @@ public :                                           // Forme canonique :
    double getDirection() const;
 	double getSize() const;
 	double getDeathRate() const;
+
+   void setX(int x);
+   void setY(int y);
+   
    void grow_old();
+ 
    double getCurrentSpeed() const;
    double getCamouflage() const;
 };
