@@ -32,14 +32,17 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
         std::shared_ptr<Shell> shellPtr (new Shell((static_cast<double>( rand() )/RAND_MAX)*(config.resistanceFactorMax- config.resistanceFactorMin) + config.resistanceFactorMin, (static_cast<double>( rand() )/RAND_MAX)*(config.slowFactorMax-config.slowFactorMin)+config.slowFactorMin));
         accessories.push_back(shellPtr);
         //cout << "Adding shell to bestiole with factor " << shellPtr->getResistanceFactor() << endl;
+        //cout << "Adding shell to bestiole with spd factor " << shellPtr->getSpeedFactor() << endl;
     }
     if (static_cast<double>( rand() )/RAND_MAX < 1/3) {
         std::shared_ptr<Fins> finsPtr (new Fins((static_cast<double>( rand() )/RAND_MAX)*(config.speedFactorMax - config.speedFactorMin) + config.speedFactorMin));
         accessories.push_back(finsPtr);
+        //cout << "Adding fins to bestiole with factor " << finsPtr->getSpeedFactor() << endl;
     }
     if (static_cast<double>( rand() )/RAND_MAX < 1/3) {
         std::shared_ptr<Camouflage> camouflagePtr (new Camouflage((static_cast<double>( rand() )/RAND_MAX)*(config.camouflageFactorMax - config.camouflageFactorMin) + config.camouflageFactorMin));
         accessories.push_back(camouflagePtr);
+        //cout << "Adding camo to bestiole with factor " << camouflagePtr->getCamouflageFactor() << endl;
     }
 
 

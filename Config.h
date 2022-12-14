@@ -68,8 +68,8 @@ class Config {
             speedFactorMax = 2;
             resistanceFactorMin = 1.5;
             resistanceFactorMax = 3;
-            slowFactorMin = 0.3;
-            slowFactorMax = 0.8;
+            slowFactorMin = 3;
+            slowFactorMax = 8;
             camouflageFactorMin = 0.6;
             camouflageFactorMax = 1,
             scaredSpeedMax = 5;
