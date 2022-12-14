@@ -14,7 +14,7 @@ const T    Ecosystem::white[] = { (T)255, (T)255, (T)255 };
 Ecosystem::Ecosystem( int _width, int _height ) : UImg( _width, _height, 1, 3 ),
                                             width(_width), height(_height)
 {
-   
+
    cout << "const Ecosystem" << endl;
 
    std::srand( time(NULL) );
@@ -50,9 +50,12 @@ void Ecosystem::step( void )
       //cout << "Birthing new bestiole randomly" << endl;
       birthBestiole();
    }
-
+   collectionBestiole.processDetections();
    collectionBestiole.processCollisions();
 
+   collectionBestiole.processOld();
+
+   cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
    for ( std::vector<std::shared_ptr<IBestiole>>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
    {
       if ( (*it)->doClone() ) {
@@ -68,6 +71,9 @@ void Ecosystem::step( void )
       (*it)->draw( *this );
 
    } // for
+
+   //Gestion des morts
+   collectionBestiole.processDead();
 
 }
 

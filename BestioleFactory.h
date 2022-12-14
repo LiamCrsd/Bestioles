@@ -7,5 +7,6 @@ class BestioleFactory: public IBestioleFactory{
         virtual std::shared_ptr<IBestiole> createBestiole();
         virtual std::shared_ptr<IBestiole> createBestiole(const Bestiole& bestiole);
         virtual std::shared_ptr<IBestiole> createBestiole(int type);
+        virtual void setCoordinates(Bestiole& bestiole);
 };
 #endif

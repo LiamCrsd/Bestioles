@@ -3,6 +3,10 @@
 #include "Config.h"
 #include <memory>
 #include <stdexcept>
+#include "sensors/Eyes.h"
+#include "sensors/Ears.h"
+#include "sensors/Sensor.h"
+
 
 std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
 
@@ -16,13 +20,29 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
     int ageLim = static_cast<double>( rand() )/RAND_MAX*(config.ageMax - config.ageMin) + config.ageMin;
     double deathRate = static_cast<double>( rand() )/RAND_MAX*config.deathRateMax;
     double cloneRate = static_cast<double>( rand() )/RAND_MAX*config.cloneRateMax;
-
-    std::shared_ptr<IBestiole> bestiole (new Bestiole(xpos, ypos, direction, speed, size, ageLim, cloneRate, deathRate));
+    std::vector<std::shared_ptr<Sensor>> sensors;
+    if (static_cast<double>( rand() )/RAND_MAX > 0.5) {
+        std::shared_ptr<Ears> ears (new Ears(
+            static_cast<double>( rand() )/RAND_MAX*(config.detectionDistanceMax - config.detectionDistanceMin) + config.detectionDistanceMin,
+            static_cast<double>( rand() )/RAND_MAX*(config.detectionRateMax - config.detectionRateMin) + config.detectionRateMin
+        ));
+        sensors.push_back(ears);
+    }
+    if (static_cast<double>( rand() )/RAND_MAX > 0.5) {
+        std::shared_ptr<Eyes> eyes (new Eyes(
+            static_cast<double>( rand() )/RAND_MAX*(config.detectionDistanceMax - config.detectionDistanceMin) + config.detectionDistanceMin, 
+            static_cast<double>( rand() )/RAND_MAX*(config.detectionRateMax - config.detectionRateMin) + config.detectionRateMin, 
+            static_cast<double>( rand() )/RAND_MAX*(config.fieldViewMax - config.fieldViewMin) + config.fieldViewMin
+        ));
+        sensors.push_back(eyes);
+    }
+    std::shared_ptr<IBestiole> bestiole (new Bestiole(xpos, ypos, direction, speed, size, ageLim, cloneRate, deathRate, sensors));
     return bestiole;
 }
 
 std::shared_ptr<IBestiole> BestioleFactory::createBestiole(const Bestiole& bestiole){
     std::shared_ptr<IBestiole> bestiole_ptr (new Bestiole(bestiole));
+    this->setCoordinates(static_cast<Bestiole&>(*bestiole_ptr));
     return bestiole_ptr;
 }
 
@@ -30,5 +50,23 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(int type){
     throw std::invalid_argument("Not implemented");
 }
 
+void BestioleFactory::setCoordinates(Bestiole& bestiole){
+    int size = bestiole.getSize();
+    int randXAbs = rand()/RAND_MAX * (5*size);
+    int randXSign = ((rand() % 2) * 2) - 1;
+    int randX = randXSign * randXAbs;
 
+    int yMax = 5*size*sin(acos(randX/(5*size)));
+    int yMin = 0;
+    if (randX < 4*size) {
+        yMin = (4*size*sin(acos(randX/(4*size))));
+    }
+
+    int randYAbs = rand()/RAND_MAX*(yMax-yMin) + yMin;
+    int randYSign = ((rand() % 2) * 2) - 1;
+    int randY = randYSign * randYAbs;
+
+    bestiole.setX(bestiole.getX() + randX);
+    bestiole.setY(bestiole.getY() + randY);
+}
     

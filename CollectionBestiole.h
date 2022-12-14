@@ -21,9 +21,11 @@ public:
 	bool getCollisions(std::shared_ptr<IBestiole> ptrBestiole);
 	std::vector<std::shared_ptr<IBestiole>> getDetections(std::shared_ptr<IBestiole> ptrBestiole);
 	void processCollisions();
-	std::vector<std::shared_ptr<IBestiole>> processDetections();
+	void processDetections();
 	void processDeaths();
 	std::vector<std::shared_ptr<IBestiole>> getBestiolesList() { return bestioles; };
+	void processDead();
+	void processOld();
 
 };
 

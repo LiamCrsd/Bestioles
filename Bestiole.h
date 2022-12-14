@@ -1,9 +1,11 @@
 #ifndef _BESTIOLE_H_
 #define _BESTIOLE_H_
 
+#include <vector>
 #include "IBestiole.h"
 #include "UImg.h"
 #include <iostream>
+#include "sensors/Sensor.h"
 
 
 using namespace std;
@@ -19,20 +21,20 @@ private :
    static int              next;
 
 private :
-   int               id;
-   int               x, y;
-   double            direction;
-   double            speed;
-   double            size;
-   int               ageLim;
-   double            cloneRate;
-   double            deathRate;
+   int                   id;
+   int                   x, y;
+   double                direction;
+   double                speed;
+   double                size;
+   int                   ageLim;
+   double                cloneRate;
+   double                deathRate;
+   std::vector<std::shared_ptr<Sensor>> sensors;
+   int                   age;
+   bool                  dead;
 
-   int               age;
-   bool              dead;
-
-   double            cumulX, cumulY;
-   T               * couleur;
+   double                cumulX, cumulY;
+   T                   * couleur;
 
 public :                                           // Forme canonique :
    Bestiole( void );                               // Constructeur par defaut
@@ -43,11 +45,12 @@ public :                                           // Forme canonique :
       double size, 
       int ageLim, 
       double cloneRate, 
-      double deathRate
+      double deathRate,
+      std::vector<std::shared_ptr<Sensor>> sensors
    );
    Bestiole( const Bestiole & b );                 // Constructeur de copies
    ~Bestiole( void );                              // Destructeur
-   
+
    bool isDead() const;
    void setDead(bool isDead);
 
@@ -58,12 +61,18 @@ public :                                           // Forme canonique :
    void move( int xLim, int yLim );
    void draw( UImg & support );
 
-   bool jeTeVois( const Bestiole & b ) const;
+   bool iSeeU( const IBestiole & b ) const;
    int getID() const;
    int getX() const;
 	int getY() const;
+   double getDirection() const;
 	double getSize() const;
 	double getDeathRate() const;
+
+   void setX(int x);
+   void setY(int y);
+   
+   void grow_old();
 };
 
 #endif
