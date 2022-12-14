@@ -47,76 +47,75 @@ class Config {
             {
               string ligne;
               getline(fichier,ligne);
-              width = stoi(ligne);
+              width = stoi(ligne.substr(14));
               getline(fichier,ligne);
-              height = stoi(ligne);
+              height = stoi(ligne.substr(15));
               getline(fichier,ligne);
-              minSize = stod(ligne);
-              cout << minSize << endl;
+              minSize = stod(ligne.substr(10));
               getline(fichier,ligne);
-              maxSize = stod(ligne);
+              maxSize = stod(ligne.substr(10));
               getline(fichier,ligne);
-              minSpeed = stod(ligne);
+              minSpeed = stod(ligne.substr(11));
               getline(fichier,ligne);
-              maxSpeed = stod(ligne);
+              maxSpeed = stod(ligne.substr(11));
               getline(fichier,ligne);
-              ageMin = stoi(ligne);
+              ageMin = stoi(ligne.substr(15));
               getline(fichier,ligne);
-              ageMax = stoi(ligne);
+              ageMax = stoi(ligne.substr(15));
               getline(fichier,ligne);
-              repartition[0] = stod(ligne); //gregariousRate
+              repartition[0] = stod(ligne.substr(17)); //gregariousRate
               getline(fichier,ligne);
-              repartition[1] = stod(ligne); //fearfulRate
+              repartition[1] = stod(ligne.substr(14)); //fearfulRate
               getline(fichier,ligne);
-              repartition[2] = stod(ligne); //kamikazeRate
+              repartition[2] = stod(ligne.substr(15)); //kamikazeRate
               getline(fichier,ligne);
-              repartition[3] = stod(ligne); //farsightedRate
+              repartition[3] = stod(ligne.substr(17)); //farsightedRate
               getline(fichier,ligne);
-              repartition[4] = stod(ligne); //multiplePersonnalityRate
+              repartition[4] = stod(ligne.substr(27)); //multiplePersonnalityRate
               getline(fichier,ligne);
-              birthRate = stod(ligne);
+              birthRate = stod(ligne.substr(12));
               getline(fichier,ligne);
-              deathRateMax = stod(ligne);
+              deathRateMax = stod(ligne.substr(15));
               getline(fichier,ligne);
-              cloneRateMax = stod(ligne);
+              cloneRateMax = stod(ligne.substr(15));
               getline(fichier,ligne);
-              fieldViewMin = M_PI/stod(ligne);
+              fieldViewMin = M_PI/stod(ligne.substr(22));
               getline(fichier,ligne);
-              fieldViewMax = M_PI/stod(ligne);
+              fieldViewMax = M_PI/stod(ligne.substr(22));
               getline(fichier,ligne);
-              detectionRateMin = stod(ligne);
+              detectionRateMin = stod(ligne.substr(19));
               getline(fichier,ligne);
-              detectionRateMax = stod(ligne);
+              detectionRateMax = stod(ligne.substr(19));
               getline(fichier,ligne);
-              detectionDistanceMin = stod(ligne);
+              detectionDistanceMin = stod(ligne.substr(23));
               getline(fichier,ligne);
-              detectionDistanceMax = stod(ligne);
+              detectionDistanceMax = stod(ligne.substr(23));
               getline(fichier,ligne);
-              eyesRate = stod(ligne);
+              eyesRate = stod(ligne.substr(11));
               getline(fichier,ligne);
-              earsRate = stod(ligne);
+              earsRate = stod(ligne.substr(11));
               getline(fichier,ligne);
-              speedFactorMin = stod(ligne);
+              speedFactorMin = stod(ligne.substr(17));
               getline(fichier,ligne);
-              speedFactorMax = stod(ligne);
+              speedFactorMax = stod(ligne.substr(17));
               getline(fichier,ligne);
-              resistanceFactorMin = stod(ligne);
+              resistanceFactorMin = stod(ligne.substr(22));
               getline(fichier,ligne);
-              resistanceFactorMax = stod(ligne);
+              resistanceFactorMax = stod(ligne.substr(22));
               getline(fichier,ligne);
-              slowFactorMin = stod(ligne);
+              slowFactorMin = stod(ligne.substr(16));
               getline(fichier,ligne);
-              slowFactorMax = stod(ligne);
+              slowFactorMax = stod(ligne.substr(16));
               getline(fichier,ligne);
-              camouflageFactorMin = stod(ligne);
+              camouflageFactorMin = stod(ligne.substr(22));
               getline(fichier,ligne);
-              camouflageFactorMax = stod(ligne);
+              camouflageFactorMax = stod(ligne.substr(22));
               getline(fichier,ligne);
-              scaredSpeedMax = stod(ligne);
+              scaredSpeedMax = stod(ligne.substr(17));
               getline(fichier,ligne);
-              scaredThresholdMax = stod(ligne);
+              scaredThresholdMax = stod(ligne.substr(21));
               getline(fichier,ligne);
-              switchRateMax = stod(ligne);
+              switchRateMax = stod(ligne.substr(16));
             }
             else
             {

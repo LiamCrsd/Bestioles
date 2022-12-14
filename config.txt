@@ -1,34 +1,35 @@
-640
-480
-3
-15
-1
-10
-100
-400
-0.2
-0.2
-0.2
-0.2
-0.01
-0.5
-0.01
-8
-2
-0.3
-1
-20
-100
-0.5
-0.5
-1.2
-2
-1.5
-3
-3
-8
-0.6
-1
-5
-5
-0.1
+Width (int) : 640
+Height (int) : 480
+MinSize : 3
+MaxSize : 15
+MinSpeed : 1
+MaxSpeed : 10
+AgeMin (int) : 100
+AgeMax (int) : 400
+gregariousRate : 0.2
+fearfulRate : 0.2
+kamikazeRate : 0.2
+farsightedRate : 0.2
+multiplePersonnalityRate : 0.2
+birthRate : 0.01
+deathRateMax : 0.5
+cloneRateMax : 0.01
+fieldViewMin : M_PI / 8
+fieldViewMax : M_PI / 2
+detectionRateMin : 0.3
+detectionRateMax : 1
+detectionDistanceMin : 20
+detectionDistanceMax : 100
+eyesRate : 0.5
+earsRate : 0.5
+speedFactorMin : 1.2
+speedFactorMax : 2
+resistanceFactorMin : 1.5
+resistanceFactorMax : 3
+slowFactorMin : 3
+slowFactorMax : 8
+camouflageFactorMin : 0.6
+camouflageFactorMax : 1
+scaredSpeedMax : 5
+scaredThresholdMax : 5
+switchRateMax : 0.1	
