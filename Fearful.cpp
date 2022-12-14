@@ -1,7 +1,7 @@
 #include "Fearful.h"
 #include "Config.h"
 #include <cmath>
-std::pair<double,double> Fearful::calcBarycenterVec(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors) const{
+std::pair<double,double> Fearful::calcBarycenterVec(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
     double xm = 0.0;
     double ym = 0.0;
     if (detectedNeighbors.size()>0){
@@ -10,18 +10,19 @@ std::pair<double,double> Fearful::calcBarycenterVec(int x,int y,double currentSp
             ym += bestiole->getY();
         }
         xm = xm/detectedNeighbors.size()-x;
-        ym = ym/detectedNeighbors.size()-y;
+        ym = y-ym/detectedNeighbors.size();
     }
     else{
         xm = currentSpeed*std::cos(currentDirection);
-        ym = currentSpeed*std::sin(currentDirection);
+        ym = -currentSpeed*std::sin(currentDirection);
     }
     std::pair<double,double> cartesianVect(xm,ym);
     return cartesianVect;
 }
 
 
-double Fearful::calcDirection(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors) const{
+double Fearful::calcDirection(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
+    std::cout<<"calcDirection of Fearful called"<<std::endl;
     if (detectedNeighbors.size()>=scaredThreshold){
         std::pair<double,double> barycenterVect = calcBarycenterVec(x,y,currentSpeed,currentDirection,detectedNeighbors);
         double barycenterDirection = fmod(std::atan2(barycenterVect.second,barycenterVect.first),2*M_PI);
@@ -33,7 +34,8 @@ double Fearful::calcDirection(int x,int y,double currentSpeed,double currentDire
       
 }
 
-double Fearful::calcSpeed(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors) const{
+double Fearful::calcSpeed(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
+    std::cout<<"calcSpeed of Fearful called"<<std::endl;
     if (detectedNeighbors.size()>=scaredThreshold){
         return scaredSpeed*currentSpeed;
     }

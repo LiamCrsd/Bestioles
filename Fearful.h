@@ -18,8 +18,8 @@ class Fearful:public Behavior{
             scaredSpeed = static_cast<double>(rand())/RAND_MAX*config.scaredSpeedMax+1;
             scaredThreshold = rand()%(std::max(config.scaredThresholdMax-1,1))+1;
         };
-        std::pair<double,double> calcBarycenterVec(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors) const;
-        virtual double calcSpeed(int x,int y,double currentSpeed, double currentDirection, std::vector<std::shared_ptr<IBestiole>> detectedNeighbors) const override;
-        virtual double calcDirection(int x,int y,double currentSpeed,double currentDirection, std::vector<std::shared_ptr<IBestiole>> detectedNeighbors) const override;
+        std::pair<double,double> calcBarycenterVec(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors);
+        virtual double calcSpeed(int x,int y,double currentSpeed, double currentDirection, std::vector<std::shared_ptr<IBestiole>> detectedNeighbors) override;
+        virtual double calcDirection(int x,int y,double currentSpeed,double currentDirection, std::vector<std::shared_ptr<IBestiole>> detectedNeighbors) override;
 };
 #endif

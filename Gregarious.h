@@ -7,7 +7,7 @@
 class Gregarious:public Behavior{
     public:
         Gregarious(){std::cout<<"Gregarious has been created"<<std::endl;}
-        std::pair<double,double> calcMeanVec(double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors) const;
-        virtual double calcDirection(int x, int y,double currentSpeed,double currentDirection, std::vector<std::shared_ptr<IBestiole>> detectedNeighbors) const override;
+        std::pair<double,double> calcMeanVec(double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors);
+        virtual double calcDirection(int x, int y,double currentSpeed,double currentDirection, std::vector<std::shared_ptr<IBestiole>> detectedNeighbors) override;
 };
 #endif

@@ -1,7 +1,7 @@
 #include "Gregarious.h"
 #include <cmath>
 
-std::pair<double,double> Gregarious::calcMeanVec(double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors) const{
+std::pair<double,double> Gregarious::calcMeanVec(double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
     double r, theta;
     double xm = 0.0;
     double ym = 0.0;
@@ -23,7 +23,8 @@ std::pair<double,double> Gregarious::calcMeanVec(double currentSpeed,double curr
     return cartesianVect;
 }
 
-double Gregarious::calcDirection(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors) const{
+double Gregarious::calcDirection(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
+    std::cout<<"calcDirection of Gregarious called"<<std::endl;
     std::pair<double,double> cartesianVect = calcMeanVec(currentSpeed,currentDirection,detectedNeighbors);
     return fmod(std::atan2(cartesianVect.second,cartesianVect.first),2*M_PI);
 } 

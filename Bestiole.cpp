@@ -218,14 +218,9 @@ void Bestiole::setDead(bool isDead) {
 
 bool Bestiole::atBorder() { throw std::invalid_argument("Not implemented");};
 void Bestiole::resolveCollision() {
-   cout << "Bestiole " << id << " did collide without dying" << endl;
    direction = fmod(direction - M_PI, 2*M_PI);
 };
 void Bestiole::resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
-   if (detectedNeighbors.size() >= 1) {
-      cout << "Bestiole " << id << " detected " << detectedNeighbors.size() << " other bestioles----------------------------" << endl;
-
-   }
    currentSpeed = behavior->calcSpeed(x,y,currentSpeed,direction,detectedNeighbors);
    direction = behavior->calcDirection(x,y,currentSpeed,direction,detectedNeighbors);
    

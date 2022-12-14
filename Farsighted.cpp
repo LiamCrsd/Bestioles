@@ -1,7 +1,8 @@
 #include "Farsighted.h"
 #include <cmath>
 #include <limits>
-double Farsighted::calcDirection(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors) const{
+double Farsighted::calcDirection(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
+    std::cout<<"calcDirection of Farsighted called"<<std::endl;
     if (detectedNeighbors.size()>0){
 
         double distance;
@@ -18,7 +19,7 @@ double Farsighted::calcDirection(int x,int y,double currentSpeed,double currentD
             }
         }
         xm = x-xm/detectedNeighbors.size();
-        ym = y-ym/detectedNeighbors.size();
+        ym = ym/detectedNeighbors.size()-y;
         return std::atan2(ym,xm);
     }
     else{
