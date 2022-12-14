@@ -25,4 +25,13 @@ void ExternalActionner::createBestiole(){
 
 void ExternalActionner::redirectKey(int key) {
     if (key == 97) this->createBestiole();
+    if (key == 98) this->killBestiole();
+}
+
+void ExternalActionner::killBestiole(){
+    if (collectionBestiole->getBestiolesList().size() != 0) {
+        int index = rand()/RAND_MAX * collectionBestiole->getBestiolesList().size();
+        auto ptr_bestiole = collectionBestiole->getBestiolesList()[index];
+        ptr_bestiole->setDead(true);
+    }
 }
