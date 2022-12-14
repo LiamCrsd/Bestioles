@@ -23,7 +23,7 @@ class Config {
                 camouflageFactorMax(camouflageFactorMax),scaredSpeedMax(scaredSpeedMax),
                 scaredThresholdMax(scaredThresholdMax),switchRateMax(switchRateMax){
                     if (gregariousRate+fearfulRate+kamikazeRate+farsightedRate +
-                        multiplePersonnalityRate != 1){
+                        multiplePersonnalityRate > 1){
                             std::cout<<"Wrong reparition, going to use uniform repartition for behavior"<<std::endl;
                             repartition[0] = 0.2;
                             repartition[1] = 0.2;
@@ -48,14 +48,14 @@ class Config {
             maxSpeed = 10;
             ageMin = 2000;
             ageMax = 10000;
-            repartition[0] = 0.5; //gregariousRate
-            repartition[1] = 0.5; //fearfulRate
-            repartition[2] = 0; //kamikazeRate
-            repartition[3] = 0; //farsightedRate
+            repartition[0] = 0; //gregariousRate
+            repartition[1] = 0; //fearfulRate
+            repartition[2] = 0.5; //kamikazeRate
+            repartition[3] = 0.5; //farsightedRate
             repartition[4] = 0; //multiplePersonnalityRate
-            birthRate = 0.0001;
+            birthRate = 0.001;
             deathRateMax = 0.5;
-            cloneRateMax = 0.01;
+            cloneRateMax = 0.001;
             fieldViewMin = M_PI/8;
             fieldViewMax = M_PI/2;
             detectionRateMin = 0.3;

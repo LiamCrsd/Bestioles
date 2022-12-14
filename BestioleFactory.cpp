@@ -19,8 +19,6 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
     double rollBehav = static_cast<double>(rand())/RAND_MAX;
     double summedRep = 0;
 
-    cout << rollBehav << endl;
-
     for(double currRepBehav : config.repartition) {
         summedRep += currRepBehav;
         if (summedRep < rollBehav) {
