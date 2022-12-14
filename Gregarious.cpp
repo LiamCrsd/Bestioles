@@ -24,7 +24,7 @@ std::pair<double,double> Gregarious::calcMeanVec(double currentSpeed,double curr
 }
 
 double Gregarious::calcDirection(int x,int y,double currentSpeed,double currentDirection,std::vector<std::shared_ptr<IBestiole>> detectedNeighbors){
-    std::cout<<"calcDirection of Gregarious called"<<std::endl;
+    //std::cout<<"calcDirection of Gregarious called"<<std::endl;
     std::pair<double,double> cartesianVect = calcMeanVec(currentSpeed,currentDirection,detectedNeighbors);
     return fmod(std::atan2(cartesianVect.second,cartesianVect.first),2*M_PI);
 } 

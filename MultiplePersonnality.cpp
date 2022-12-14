@@ -1,4 +1,5 @@
 #include "MultiplePersonnality.h"
+#include "Behavior.h"
 #include "Gregarious.h"
 #include "Fearful.h"
 #include "Kamikaze.h"
@@ -7,7 +8,7 @@
 #include <random>
 MultiplePersonnality::MultiplePersonnality(){
     std::cout<<"Multiple personnality has been created"<<std::endl;
-    behavior = std::make_shared<Behavior>(new Behavior());
+    behavior = std::shared_ptr<Behavior>(new Behavior());
     switchRate = static_cast<double>(rand())/RAND_MAX*Config::GetInstance().switchRateMax;
 }
 

@@ -40,8 +40,8 @@ class Config {
         }
 
         Config() {
-            width = 900;
-            height = 900;
+            width = 700;
+            height = 700;
             minSize = 3;
             maxSize = 15;
             minSpeed = 1;
@@ -60,8 +60,8 @@ class Config {
             fieldViewMax = M_PI/2;
             detectionRateMin = 0.3;
             detectionRateMax = 1;
-            detectionDistanceMin = 20;
-            detectionDistanceMax = 100;
+            detectionDistanceMin = 1000;
+            detectionDistanceMax = 10000;
             eyesRate = 0.5;
             earsRate = 0.5;
             speedFactorMax = 3;

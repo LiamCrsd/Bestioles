@@ -11,7 +11,7 @@ int main()
 {
    Aquarium aquarium( 30 );
 
-   for ( int i = 1; i <= 1; ++i )
+   for ( int i = 1; i <= 30; ++i )
       aquarium.getEcosystem().birthBestiole();
    aquarium.run();
 
