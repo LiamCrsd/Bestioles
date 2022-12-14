@@ -67,8 +67,8 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
     return bestiole;
 }
 
-std::shared_ptr<IBestiole> BestioleFactory::createBestiole(const Bestiole& bestiole){
-    std::shared_ptr<IBestiole> bestiole_ptr (new Bestiole(bestiole));
+std::shared_ptr<IBestiole> BestioleFactory::createBestiole(std::shared_ptr<IBestiole> bestiole){
+    std::shared_ptr<IBestiole> bestiole_ptr (new Bestiole(dynamic_cast<Bestiole&>(*bestiole)));
     this->setCoordinates(static_cast<Bestiole&>(*bestiole_ptr));
     return bestiole_ptr;
 }

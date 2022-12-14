@@ -34,7 +34,7 @@ void Ecosystem::birthBestiole() {
    collectionBestiole.addBestiole(newBestiole);
 }
 
-void Ecosystem::cloneBestiole(const Bestiole& bestiole) {
+void Ecosystem::cloneBestiole(std::shared_ptr<IBestiole> bestiole) {
    std::shared_ptr<IBestiole> clonedBestiole = bestioleFactory.createBestiole(bestiole);
    collectionBestiole.addBestiole(clonedBestiole);
 }
@@ -59,7 +59,7 @@ void Ecosystem::step( void )
    for ( std::vector<std::shared_ptr<IBestiole>>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
    {
       if ( (*it)->doClone() ) {
-         cloneBestiole(dynamic_cast<Bestiole&>(**it));
+         cloneBestiole(*it);
       }
    }
 
@@ -74,20 +74,5 @@ void Ecosystem::step( void )
 
    //Gestion des morts
    collectionBestiole.processDead();
-
-}
-
-
-int Ecosystem::nbVoisins( const Bestiole & b )
-{
-
-   int         nb = 0;
-
-   /*std::vector<std::shared_ptr<IBestiole>> listeBestioles = collectionBestiole.getBestiolesList();
-   for ( std::vector<std::shared_ptr<IBestiole>>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
-      if ( !(b == **it) && b.jeTeVois(**it) )
-         ++nb;
-   */
-   return nb;
 
 }
