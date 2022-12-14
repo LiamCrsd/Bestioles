@@ -8,7 +8,7 @@
 using namespace std;
 using namespace cimg_library;
 
-
+#include "ExternalActionner.h"
 class Ecosystem;
 
 
@@ -17,7 +17,7 @@ class Aquarium : public CImgDisplay
 
 private :
    Ecosystem       * flotte;
-
+   ExternalActionner extActionner;
    int            delay;
 
 public :

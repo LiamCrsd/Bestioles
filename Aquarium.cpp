@@ -2,6 +2,10 @@
 
 #include "Ecosystem.h"
 #include "Config.h"
+#include "ExternalActionner.h"
+
+#include <chrono>
+#include <thread>
 
 Aquarium::Aquarium( int _delay ) : CImgDisplay(), delay( _delay )
 {
@@ -16,8 +20,11 @@ Aquarium::Aquarium( int _delay ) : CImgDisplay(), delay( _delay )
 
    cout << "const Aquarium" << endl;
 
+
    flotte = new Ecosystem( width, height );
    assign( *flotte, "Simulation d'ecosysteme" );
+
+   this->extActionner = ExternalActionner(this->flotte);
 
    move( static_cast<int>((screenWidth-width)/2), static_cast<int>((screenHeight-height)/2) );
 
@@ -48,6 +55,8 @@ void Aquarium::run( void )
          cout << "Vous avez presse la touche " << static_cast<unsigned char>( key() );
          cout << " (" << key() << ")" << endl;
          if ( is_keyESC() ) close();
+         extActionner.redirectKey(key());
+         this_thread::sleep_for(chrono::milliseconds(200));
       }
 
       flotte->step();
