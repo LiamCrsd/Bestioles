@@ -67,7 +67,7 @@ bool CollectionBestiole::getCollisions(std::shared_ptr<IBestiole> ptrBestiole) {
 	if (!isDead && doCollide) {
 		ptrBestiole->resolveCollision();
 	} else if (isDead) {
-		//cout << "Setting bestiole as dead" << endl;
+		//cout << "Setting bestiole as dead from collision" << endl;
 		ptrBestiole->setDead(isDead);
 	}
 

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cmath>
 
 class Config {
     private:
@@ -25,7 +26,7 @@ class Config {
                 camouflageFactorMax(camouflageFactorMax),scaredSpeedMax(scaredSpeedMax),
                 scaredThresholdMax(scaredThresholdMax),switchRateMax(switchRateMax){
                     if (gregariousRate+fearfulRate+kamikazeRate+farsightedRate +
-                        multiplePersonnalityRate != 1){
+                        multiplePersonnalityRate > 1){
                             std::cout<<"Wrong reparition, going to use uniform repartition for behavior"<<std::endl;
                             repartition[0] = 0.2;
                             repartition[1] = 0.2;
@@ -42,10 +43,10 @@ class Config {
         }
 
         Config() {
-            ifstream fichier("./config.txt");
+            std::ifstream fichier("./config.txt");
             if(fichier)
             {
-              string ligne;
+              std::string ligne;
               getline(fichier,ligne);
               width = stoi(ligne.substr(14));
               getline(fichier,ligne);
@@ -119,7 +120,7 @@ class Config {
             }
             else
             {
-              cout << "error txt" << endl;
+              std::cout << "error txt" << std::endl;
               width = 640;
               height = 480;
               minSize = 3;
@@ -174,7 +175,8 @@ class Config {
         double speedFactorMin, speedFactorMax, resistanceFactorMin, resistanceFactorMax;
         double slowFactorMin, slowFactorMax;
         double camouflageFactorMin, camouflageFactorMax;
-        double scaredSpeedMax, scaredThresholdMax;
+        double scaredSpeedMax;
+        int scaredThresholdMax;
         double switchRateMax;
 
         Config(Config &other) = delete;

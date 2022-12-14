@@ -4,13 +4,13 @@ MinSize : 3
 MaxSize : 15
 MinSpeed : 1
 MaxSpeed : 10
-AgeMin (int) : 100
-AgeMax (int) : 400
-gregariousRate : 0.2
-fearfulRate : 0.2
-kamikazeRate : 0.2
-farsightedRate : 0.2
-multiplePersonnalityRate : 0.2
+AgeMin (int) : 1000
+AgeMax (int) : 4000
+gregariousRate : 0
+fearfulRate : 0.5
+kamikazeRate : 0
+farsightedRate : 0.5
+multiplePersonnalityRate : 0
 birthRate : 0.01
 deathRateMax : 0.5
 cloneRateMax : 0.01
@@ -30,6 +30,6 @@ slowFactorMin : 3
 slowFactorMax : 8
 camouflageFactorMin : 0.6
 camouflageFactorMax : 1
-scaredSpeedMax : 5
+scaredSpeedMax : 1.5
 scaredThresholdMax : 5
-switchRateMax : 0.1	
+switchRateMax : 0.01	

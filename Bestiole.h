@@ -4,6 +4,7 @@
 #include <vector>
 #include "IBestiole.h"
 #include "UImg.h"
+#include "behaviors/Behavior.h"
 #include <iostream>
 #include "accessories/Accessory.h"
 #include "sensors/Sensor.h"
@@ -25,7 +26,8 @@ private :
    int               id;
    int               x, y;
    double            direction;
-   double            speed;
+   double            behaviorSpeedFactor;
+   double            initialSpeed;
    double            size;
    int               ageLim;
    double            cloneRate;
@@ -36,8 +38,9 @@ private :
    bool              dead;
 
    double            cumulX, cumulY;
-   T               * couleur;
+   T*                couleur;
 
+   std::shared_ptr<Behavior> behavior;
 
 public :                                           // Forme canonique :
    Bestiole( void );                               // Constructeur par defaut
@@ -51,7 +54,8 @@ public :                                           // Forme canonique :
       double cloneRate,
       double deathRate,
       std::vector<std::shared_ptr<Sensor>> sensors,
-      std::vector<std::shared_ptr<Accessory>> accessories
+      std::vector<std::shared_ptr<Accessory>> accessories,
+      int behaviorIndex
    );
    Bestiole( const Bestiole & b );                 // Constructeur de copies
    ~Bestiole( void );                              // Destructeur
@@ -59,7 +63,6 @@ public :                                           // Forme canonique :
    bool isDead() const;
    void setDead(bool isDead);
 
-	bool atBorder();
 	void resolveCollision();
 	void resolveDetections(std::vector<std::shared_ptr<IBestiole>> detectedNeighbors);
 	bool doClone();
@@ -68,12 +71,19 @@ public :                                           // Forme canonique :
 
    bool iSeeU( const IBestiole & b ) const;
    int getID() const;
+   double getDirection(){return direction;};
+   std::pair<int,int> getPos(){return std::pair<int,int> (x,y);};
    int getX() const;
 	int getY() const;
    double getDirection() const;
 	double getSize() const;
 	double getDeathRate() const;
+
+   void setX(int x);
+   void setY(int y);
+   
    void grow_old();
+ 
    double getCurrentSpeed() const;
    double getCamouflage() const;
 };
