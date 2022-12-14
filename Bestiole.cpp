@@ -54,7 +54,8 @@ Bestiole::Bestiole(
 
    id = ++next;
 
-   cout << "const Bestiole (" << id << ") of size " << size << endl;
+   //cout << "const Bestiole (" << id << ") of size " << size << endl;
+   std::cout << id << " bestioles created" << "\t\r" << std::flush;
 
    age = 0;
    dead = false;
@@ -100,8 +101,8 @@ Bestiole::Bestiole( const Bestiole & b )
 
    id = ++next;
 
-   cout << "const Bestiole (" << id << ") par copie" << endl;
-
+   //cout << "const Bestiole (" << id << ") par copie" << endl;
+   std::cout << id << " bestioles created" << "\t\r" << std::flush;
 
    x = b.x;
    y = b.y;
@@ -133,7 +134,7 @@ Bestiole::~Bestiole( void )
 
    delete[] couleur;
 
-   cout << "dest Bestiole " << id << endl;
+   //cout << "dest Bestiole " << id << endl;
 
 }
 
@@ -216,7 +217,7 @@ bool Bestiole::iSeeU( const IBestiole & b ) const
 
 bool Bestiole::isDead() const { return dead; };
 void Bestiole::setDead(bool isDead) {
-   cout << "Bestiole " << id << " is dead" << endl;
+   //cout << "Bestiole " << id << " is dead" << endl;
    dead = isDead;
 };
 
