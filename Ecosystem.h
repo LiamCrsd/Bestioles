@@ -31,6 +31,8 @@ public :
 
    int getWidth( void ) const { return width; };
    int getHeight( void ) const { return height; };
+   CollectionBestiole* getCollection( void ) { return &collectionBestiole; };
+   BestioleFactory* getBestioleFactory( void ) { return &bestioleFactory; };
 
    void step( void );
 

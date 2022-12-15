@@ -1,5 +1,5 @@
-main : main.cpp Aquarium.o Bestiole.o Ecosystem.o BestioleFactory.o CollectionBestiole.o Accessory.o Fins.o Shell.o Camouflage.o Behavior.o Gregarious.o Fearful.o Kamikaze.o Farsighted.o MultiplePersonnality.o Sensor.o Ears.o Eyes.o
-	g++ -Wall -std=c++11 -o main main.cpp Aquarium.o Bestiole.o Ecosystem.o BestioleFactory.o CollectionBestiole.o Accessory.o Fins.o Shell.o Camouflage.o Behavior.o Gregarious.o Fearful.o Kamikaze.o Farsighted.o MultiplePersonnality.o Sensor.o Ears.o Eyes.o -I . -lX11 -lpthread
+main : main.cpp Aquarium.o Bestiole.o Ecosystem.o ExternalActionner.o BestioleFactory.o CollectionBestiole.o Accessory.o Fins.o Shell.o Camouflage.o Behavior.o Gregarious.o Fearful.o Kamikaze.o Farsighted.o MultiplePersonnality.o Sensor.o Ears.o Eyes.o
+	g++ -Wall -std=c++11 -o main main.cpp Aquarium.o Bestiole.o Ecosystem.o ExternalActionner.o BestioleFactory.o CollectionBestiole.o Accessory.o Fins.o Shell.o Camouflage.o Behavior.o Gregarious.o Fearful.o Kamikaze.o Farsighted.o MultiplePersonnality.o Sensor.o Ears.o Eyes.o -I . -lX11 -lpthread
 
 Aquarium.o : Aquarium.h Aquarium.cpp
 	g++ -Wall -std=c++11  -c Aquarium.cpp -I .
@@ -9,6 +9,9 @@ Bestiole.o : Bestiole.h Bestiole.cpp IBestiole.h behaviors/Behavior.h behaviors/
 
 Ecosystem.o : Ecosystem.h Ecosystem.cpp
 	g++ -Wall -std=c++11  -c Ecosystem.cpp -I .
+
+ExternalActionner.o : ExternalActionner.h ExternalActionner.cpp
+	g++ -Wall -std=c++11 -c ExternalActionner.cpp -I .
 
 BestioleFactory.o : BestioleFactory.h BestioleFactory.cpp
 	g++ -Wall -std=c++11  -c BestioleFactory.cpp -I .

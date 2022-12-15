@@ -25,7 +25,6 @@ public:
 	std::vector<std::shared_ptr<IBestiole>> getBestiolesList() { return bestioles; };
 	void processDead();
 	void processOld();
-
 };
 
 #endif

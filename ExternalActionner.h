@@ -1,23 +1,31 @@
 #ifndef _EXTERNALACTIONNER_H_
 #define _EXTERNALACTIONNER_H_
 
-class Aquarium;
-class BestioleFactory;
-class ConcreteBestiole;
+
+#include "BestioleFactory.h"
+#include "CollectionBestiole.h"
+#include "Ecosystem.h"
+class Behavior;
 
 class ExternalActionner 
 {
 private:
-    Aquarium  *aquarium;
     BestioleFactory *factory;
+    CollectionBestiole  *collectionBestiole;
 public:
     ExternalActionner();
+    ExternalActionner(Ecosystem*);
+    ~ExternalActionner( void );
 
     void createBestiole( void );
     void createBestiole( int );
 
+    void changeBehavior(int, int);
+
     void killBestiole();
     void killBestiole(int);
     void getReport();
+
+    void redirectKey(int);
 };
 #endif

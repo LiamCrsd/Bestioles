@@ -81,6 +81,7 @@ public :                                           // Forme canonique :
 
    void setX(int x);
    void setY(int y);
+   void setBehavior(int type);
    
    void grow_old();
  

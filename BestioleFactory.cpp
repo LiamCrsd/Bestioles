@@ -10,11 +10,15 @@
 #include "sensors/Eyes.h"
 #include "sensors/Ears.h"
 #include "sensors/Sensor.h"
+#include "Stats.h"
 
 
 std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
 
     Config& config = Config::GetInstance();
+    Stats& stats = Stats::GetInstance();
+
+    stats.nbCreated++;
     int behaviorIndex = 0;
     double rollBehav = static_cast<double>(rand())/RAND_MAX;
     double summedRep = 0;
@@ -30,6 +34,8 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
 }
 
 std::shared_ptr<IBestiole> BestioleFactory::createBestiole(std::shared_ptr<IBestiole> bestiole){
+    Stats& stats = Stats::GetInstance();
+    stats.nbCreated++;
     std::shared_ptr<IBestiole> bestiole_ptr (new Bestiole(dynamic_cast<Bestiole&>(*bestiole)));
     this->setCoordinates(static_cast<Bestiole&>(*bestiole_ptr));
     return bestiole_ptr;
@@ -38,6 +44,8 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(std::shared_ptr<IBest
 std::shared_ptr<IBestiole> BestioleFactory::createBestiole(int type){
 
     Config& config = Config::GetInstance();
+    Stats& stats = Stats::GetInstance();
+    stats.nbCreated++;
     
     int xpos = static_cast<double>( rand() )/RAND_MAX*config.width;
     int ypos = static_cast<double>( rand() )/RAND_MAX*config.height;
@@ -90,6 +98,7 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(int type){
     std::shared_ptr<IBestiole> bestiole (new Bestiole(xpos, ypos, direction, speed, size, ageLim, cloneRate, deathRate, sensors, accessories, type));
     return bestiole;
 }
+
 
 void BestioleFactory::setCoordinates(Bestiole& bestiole){
 
