@@ -1,19 +1,19 @@
 Width (int) : 640
 Height (int) : 480
-MinSize : 3
-MaxSize : 5
-MinSpeed : 1
-MaxSpeed : 10
+MinSize : 5
+MaxSize : 10
+MinSpeed : 2
+MaxSpeed : 4
 AgeMin (int) : 1000
 AgeMax (int) : 4000
-gregariousRate : 1
+gregariousRate : 0
 fearfulRate : 0
 kamikazeRate : 0
 farsightedRate : 0
-multiplePersonnalityRate : 0
+multiplePersonnalityRate : 1
 birthRate : 0.01
-deathRateMax : 0.5
-cloneRateMax : 0.01
+deathRateMax : 0.6
+cloneRateMax : 0.001
 fieldViewMin : M_PI / 8
 fieldViewMax : M_PI / 2
 detectionRateMin : 0.3
@@ -21,7 +21,7 @@ detectionRateMax : 1
 detectionDistanceMin : 20
 detectionDistanceMax : 100
 eyesRate : 0.5
-earsRate : 0.5
+earsRate : 1
 speedFactorMin : 1.2
 speedFactorMax : 2
 resistanceFactorMin : 1.5
@@ -30,6 +30,6 @@ slowFactorMin : 3
 slowFactorMax : 8
 camouflageFactorMin : 0.6
 camouflageFactorMax : 1
-scaredSpeedMax : 1.5
+scaredSpeedMax : 2
 scaredThresholdMax : 5
 switchRateMax : 0.01	

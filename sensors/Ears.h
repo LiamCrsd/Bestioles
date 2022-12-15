@@ -9,5 +9,6 @@ public:
     Ears(double detectionDistance, double detectionRate);
     bool isDetected(int xThis, int yThis, double headingThis, 
     int xTarget, int yTarget, double camouflageTarget);
+    void drawSensor(UImg& support, int x, int y, double size, double direction, T* color);
 };
 #endif

@@ -22,7 +22,6 @@ public:
 	std::vector<std::shared_ptr<IBestiole>> getDetections(std::shared_ptr<IBestiole> ptrBestiole);
 	void processCollisions();
 	void processDetections();
-	void processDeaths();
 	std::vector<std::shared_ptr<IBestiole>> getBestiolesList() { return bestioles; };
 	void processDead();
 	void processOld();
