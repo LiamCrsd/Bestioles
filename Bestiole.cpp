@@ -87,11 +87,16 @@ Bestiole::Bestiole(
         couleur[1]=0;
         couleur[2]=255;
     }
-    else{
+    else if (behaviorIndex==4) {
       behavior = shared_ptr<Behavior>(new MultiplePersonnality());
       couleur[0]=0;
       couleur[1]=0;
       couleur[2]=0;
+    } else {
+      behavior = shared_ptr<Behavior>(new Behavior());
+      couleur[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
+      couleur[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
+      couleur[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
     }
 }
 
