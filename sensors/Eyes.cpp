@@ -1,4 +1,5 @@
 #include "Eyes.h"
+#include "UImg.h"
 #include <cmath>
 #include <iostream>
 
@@ -23,4 +24,16 @@ int xTarget, int yTarget, double camouflageTarget) {
         return angle <= Eyes::fieldView;
     };
     return false;
+}
+
+void Eyes::drawSensor(UImg& support, int x, int y, double size, double direction, T* color) {
+    
+    double         xl = x + cos( direction )*size/1.5 + cos( direction + M_PI/2 )*size/3.4;
+    double         yl = y - sin( direction )*size/1.5 - sin( direction + M_PI/2 )*size/3.4;
+    double         xr = x + cos( direction )*size/1.5 + cos( direction - M_PI/2 )*size/3.4;
+    double         yr = y - sin( direction )*size/1.5 - sin( direction - M_PI/2 )*size/3.4;
+
+    int black[3]{0, 0, 0};
+    support.draw_circle( xl, yl, size/10, black);
+    support.draw_circle( xr, yr, size/10, black);
 }

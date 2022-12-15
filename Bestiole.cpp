@@ -184,6 +184,11 @@ void Bestiole::draw( UImg & support )
    support.draw_ellipse( x, y, size, size/5., -direction/M_PI*180., couleur );
    support.draw_circle( xt, yt, size/2., couleur );
 
+   for (std::vector<std::shared_ptr<Sensor>>::const_iterator it = sensors.begin() ; it != sensors.end() ; ++it) {
+      (*it)->drawSensor(support, x, y, size, direction, couleur);
+   }
+
+
 }
 
 int Bestiole::getID() const {

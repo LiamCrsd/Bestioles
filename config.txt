@@ -1,9 +1,9 @@
 Width (int) : 640
 Height (int) : 480
-MinSize : 3
-MaxSize : 5
-MinSpeed : 1
-MaxSpeed : 10
+MinSize : 20
+MaxSize : 20
+MinSpeed : 0.001
+MaxSpeed : 0.001
 AgeMin (int) : 1000
 AgeMax (int) : 4000
 gregariousRate : 1

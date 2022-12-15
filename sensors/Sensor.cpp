@@ -1,4 +1,5 @@
 #include "Sensor.h"
+#include "UImg.h"
 #include <iostream>
 #include <cmath>
 
@@ -10,3 +11,5 @@ bool Sensor::isDetected(int xThis, int yThis, double headingThis,
         };
         return false; 
 }
+
+void Sensor::drawSensor(UImg& support, int x, int y, double size, double direction, T* color) {}
