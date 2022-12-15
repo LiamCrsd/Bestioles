@@ -10,8 +10,8 @@
 Aquarium::Aquarium( int _delay ) : CImgDisplay(), delay( _delay )
 {
 
-   int         screenWidth = 1280; //screen_width();
-   int         screenHeight = 1024; //screen_height();
+   int         screenWidth = screen_width();
+   int         screenHeight = screen_height();
 
    Config& config = Config::GetInstance();
    int width = config.width;

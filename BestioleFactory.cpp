@@ -19,7 +19,34 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
     Stats& stats = Stats::GetInstance();
 
     stats.nbCreated++;
+    int behaviorIndex = 0;
+    double rollBehav = static_cast<double>(rand())/RAND_MAX;
+    double summedRep = 0;
 
+    for(double currRepBehav : config.repartition) {
+        summedRep += currRepBehav;
+        if (summedRep < rollBehav) {
+            behaviorIndex += 1;
+        }
+    }
+
+    return createBestiole(behaviorIndex);
+}
+
+std::shared_ptr<IBestiole> BestioleFactory::createBestiole(std::shared_ptr<IBestiole> bestiole){
+    Stats& stats = Stats::GetInstance();
+    stats.nbCreated++;
+    std::shared_ptr<IBestiole> bestiole_ptr (new Bestiole(dynamic_cast<Bestiole&>(*bestiole)));
+    this->setCoordinates(static_cast<Bestiole&>(*bestiole_ptr));
+    return bestiole_ptr;
+}
+
+std::shared_ptr<IBestiole> BestioleFactory::createBestiole(int type){
+
+    Config& config = Config::GetInstance();
+    Stats& stats = Stats::GetInstance();
+    stats.nbCreated++;
+    
     int xpos = static_cast<double>( rand() )/RAND_MAX*config.width;
     int ypos = static_cast<double>( rand() )/RAND_MAX*config.height;
     double speed = static_cast<double>( rand() )/RAND_MAX*(config.maxSpeed - config.minSpeed) + config.minSpeed;
@@ -28,7 +55,7 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
     int ageLim = static_cast<double>( rand() )/RAND_MAX*(config.ageMax - config.ageMin) + config.ageMin;
     double deathRate = static_cast<double>( rand() )/RAND_MAX*config.deathRateMax;
     double cloneRate = static_cast<double>( rand() )/RAND_MAX*config.cloneRateMax;
-
+    
 
     std::vector<std::shared_ptr<Accessory>> accessories; 
 
@@ -52,7 +79,7 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
 
     std::vector<std::shared_ptr<Sensor>> sensors;
 
-    if (static_cast<double>( rand() )/RAND_MAX > 0.5) {
+    if (static_cast<double>( rand() )/RAND_MAX > 0) {
         std::shared_ptr<Ears> ears (new Ears(
             static_cast<double>( rand() )/RAND_MAX*(config.detectionDistanceMax - config.detectionDistanceMin) + config.detectionDistanceMin,
             static_cast<double>( rand() )/RAND_MAX*(config.detectionRateMax - config.detectionRateMin) + config.detectionRateMin
@@ -67,21 +94,33 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
         ));
         sensors.push_back(eyes);
     }
-    std::shared_ptr<IBestiole> bestiole (new Bestiole(xpos, ypos, direction, speed, size, ageLim, cloneRate, deathRate, sensors, accessories));
+
+    std::shared_ptr<IBestiole> bestiole (new Bestiole(xpos, ypos, direction, speed, size, ageLim, cloneRate, deathRate, sensors, accessories, type));
     return bestiole;
 }
 
-std::shared_ptr<IBestiole> BestioleFactory::createBestiole(const Bestiole& bestiole){
-    Stats& stats = Stats::GetInstance();
-    stats.nbCreated++;
-    
-    std::shared_ptr<IBestiole> bestiole_ptr (new Bestiole(bestiole));
-    return bestiole_ptr;
+
+void BestioleFactory::setCoordinates(Bestiole& bestiole){
+
+   // Generate random coordinates for the cloned bestiole such that its distance with the original
+   // is between 4*size and 5*size
+
+    int size = bestiole.getSize();
+    int randXAbs = static_cast<double>(rand())/RAND_MAX * (5*size);
+    int randXSign = ((rand() % 2) * 2) - 1;
+    int randX = randXSign * randXAbs;
+
+    int yMax = 5*size*sin(acos(randX/(5*size)));
+    int yMin = 0;
+    if (randX < 4*size) {
+        yMin = (4*size*sin(acos(randX/(4*size))));
+    }
+
+    int randYAbs = static_cast<double>(rand())/RAND_MAX*(yMax-yMin) + yMin;
+    int randYSign = ((rand() % 2) * 2) - 1;
+    int randY = randYSign * randYAbs;
+
+    bestiole.setX(bestiole.getX() + randX);
+    bestiole.setY(bestiole.getY() + randY);
 }
-
-std::shared_ptr<IBestiole> BestioleFactory::createBestiole(int type){
-    throw std::invalid_argument("Not implemented");
-}
-
-
     
