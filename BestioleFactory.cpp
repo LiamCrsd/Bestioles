@@ -79,7 +79,7 @@ std::shared_ptr<IBestiole> BestioleFactory::createBestiole(int type){
 
     std::vector<std::shared_ptr<Sensor>> sensors;
 
-    if (static_cast<double>( rand() )/RAND_MAX > 0) {
+    if (static_cast<double>( rand() )/RAND_MAX > 0.5) {
         std::shared_ptr<Ears> ears (new Ears(
             static_cast<double>( rand() )/RAND_MAX*(config.detectionDistanceMax - config.detectionDistanceMin) + config.detectionDistanceMin,
             static_cast<double>( rand() )/RAND_MAX*(config.detectionRateMax - config.detectionRateMin) + config.detectionRateMin
