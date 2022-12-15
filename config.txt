@@ -11,7 +11,7 @@ fearfulRate : 0
 kamikazeRate : 0
 farsightedRate : 0
 multiplePersonnalityRate : 1
-birthRate : 0.01
+birthRate : 0.1
 deathRateMax : 0.6
 cloneRateMax : 0.001
 fieldViewMin : M_PI / 8
