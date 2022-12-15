@@ -20,7 +20,7 @@ public:
     void createBestiole( void );
     void createBestiole( int );
 
-    void changeBehavior(int, Behavior);
+    void changeBehavior(int, int);
 
     void killBestiole();
     void killBestiole(int);

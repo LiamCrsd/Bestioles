@@ -29,6 +29,7 @@ public:
 	virtual void grow_old()=0;
 	virtual double getCurrentSpeed() const = 0;
     virtual double getCamouflage() const = 0;
+	virtual void setBehavior(int behaviorType)=0;
 
 };
 

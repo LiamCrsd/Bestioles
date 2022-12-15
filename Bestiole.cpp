@@ -276,3 +276,36 @@ double Bestiole::getCamouflage() const{
    }
    return value;
 }
+
+void Bestiole::setBehavior(int type){
+   if (type==0){
+        behavior = std::shared_ptr<Behavior>(new Gregarious());
+        couleur[0]=0;
+        couleur[1]=255;
+        couleur[2]=0;
+    }
+   else if (type==1){
+        behavior = shared_ptr<Behavior>(new Fearful());
+        couleur[0]=255;
+        couleur[1]=0;
+        couleur[2]=255;
+    }
+    else if (type==2){
+        behavior = shared_ptr<Behavior>(new Kamikaze());
+        couleur[0]=255;
+        couleur[1]=0;
+        couleur[2]=0;
+    }
+    else if (type==3){
+        behavior = shared_ptr<Behavior>(new Farsighted());
+        couleur[0]=0;
+        couleur[1]=0;
+        couleur[2]=255;
+    }
+    else{
+      behavior = shared_ptr<Behavior>(new MultiplePersonnality());
+      couleur[0]=0;
+      couleur[1]=0;
+      couleur[2]=0;
+    }
+}

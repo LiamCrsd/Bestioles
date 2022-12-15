@@ -24,10 +24,26 @@ void ExternalActionner::createBestiole(){
     collectionBestiole->addBestiole(factory->createBestiole());
 }
 
+void ExternalActionner::createBestiole(int index){
+    auto listeBestiole = collectionBestiole->getBestiolesList();
+    collectionBestiole->addBestiole(factory->createBestiole(listeBestiole.at(index)));
+}
+
+void ExternalActionner::changeBehavior(int index, int behaviorType){
+    auto bestiole_ptr = collectionBestiole->getBestiolesList().at(index);
+    bestiole_ptr->setBehavior(behaviorType);
+}
+
 void ExternalActionner::redirectKey(int key) {
     if (key == 97) this->createBestiole();
     if (key == 98) this->killBestiole();
     if (key == 99) this->getReport();
+    if (key == 100) this->createBestiole(0);
+    if (key == 101) this->changeBehavior(0, 1);
+    if (key == 102) this->changeBehavior(0, 2);
+    if (key == 103) this->changeBehavior(0, 3);
+    if (key == 104) this->changeBehavior(0, 4);
+    if (key == 105) this->changeBehavior(0, 0);
 }
 
 void ExternalActionner::killBestiole(){
