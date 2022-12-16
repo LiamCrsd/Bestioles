@@ -1,16 +1,16 @@
-Width (int) : 640
-Height (int) : 480
+Width (int) : 1400
+Height (int) : 700
 MinSize : 5
 MaxSize : 10
 MinSpeed : 2
 MaxSpeed : 4
 AgeMin (int) : 1000
 AgeMax (int) : 4000
-gregariousRate : 0
-fearfulRate : 0
-kamikazeRate : 0
-farsightedRate : 0
-multiplePersonnalityRate : 1
+gregariousRate : 0.25
+fearfulRate : 0.25
+kamikazeRate : 0.25
+farsightedRate : 0.25
+multiplePersonnalityRate : 0
 birthRate : 0.1
 deathRateMax : 0.6
 cloneRateMax : 0.001

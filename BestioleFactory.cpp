@@ -16,9 +16,7 @@
 std::shared_ptr<IBestiole> BestioleFactory::createBestiole(){
 
     Config& config = Config::GetInstance();
-    Stats& stats = Stats::GetInstance();
 
-    stats.nbCreated++;
     int behaviorIndex = 0;
     double rollBehav = static_cast<double>(rand())/RAND_MAX;
     double summedRep = 0;
